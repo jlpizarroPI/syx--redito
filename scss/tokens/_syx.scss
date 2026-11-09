@@ -1,0 +1,86 @@
+// Sobrescritura de tokens semánticos de SYX: claro, oscuro del sistema y oscuro elegido.
+/* ── 1 · sobrescritura de tokens de SYX (fuera de capa) ─────────────────────────────── */
+:root {
+  /* R-COL-01/02: tres tintas y nada más — marfil, negro de imprenta y latón.
+     El latón es acento, no color de texto corrido: filetes cortos, capitular, barra destacada,
+     estado activo. Contrastes medidos (WCAG, sobre el marfil): tinta 17,8 · tinta 2 7,5 ·
+     latón de texto 5,7 · latón gráfico 3,4 (≥ 3, objeto no textual y capitular grande). */
+  --semantic-color-bg-primary: oklch(0.975 0.007 85);
+  --semantic-color-bg-secondary: oklch(0.955 0.009 85);
+  --semantic-color-text-primary: oklch(0.17 0.004 260);
+  --semantic-color-text-secondary: oklch(0.43 0.006 260);
+  --semantic-color-text-tertiary: oklch(0.52 0.006 260);
+  --semantic-color-border-subtle: oklch(0.87 0.012 85);
+  --semantic-color-border-default: oklch(0.76 0.012 85);
+  --semantic-color-border-strong: oklch(0.17 0.004 260);
+  --semantic-color-primary: oklch(0.62 0.09 78);
+  --semantic-color-primary-text: oklch(0.5 0.075 72);
+  --semantic-color-link-default: oklch(0.17 0.004 260);
+  --semantic-color-link-hover: oklch(0.5 0.075 72);
+  /* subidas y bajadas: azul y teja en vez de verde y rojo (validate_palette de la skill dataviz:
+     el par verde/rojo daba ΔE 3,8 en protanopía; azul/teja da 22,1). Texto ≥ 4,5:1, marca ≥ 3:1 */
+  --semantic-color-state-success-text: oklch(0.45 0.13 250);
+  --semantic-color-state-error-text: oklch(0.52 0.14 45);
+  --semantic-color-state-success: oklch(0.5 0.13 250);
+  --semantic-color-state-error: oklch(0.6 0.15 50);
+  --semantic-color-state-focus: oklch(0.5 0.075 72);
+  --semantic-color-placeholder: var(--semantic-color-text-tertiary);
+  --semantic-font-family-primary: "Newsreader", Georgia, serif;
+  --semantic-font-family-heading: "Newsreader", Georgia, serif;
+
+  /* retícula: compose --density spacious. Gutter 16 → 38 px, margen 16 → 120 px,
+     con cuerpo 18 → 20: gutter 16 → 42 px; los cinco escalones de layout-grid igualados a un clamp() (L3) */
+  --layout-gap-1: clamp(1rem, 0.4583rem + 2.4074vw, 2.625rem);
+  --layout-gap-2: var(--layout-gap-1);
+  --layout-gap-3: var(--layout-gap-1);
+  --layout-gap-4: var(--layout-gap-1);
+  --layout-gap-5: var(--layout-gap-1);
+  --layout-pad-1: clamp(1rem, -1.1667rem + 9.6296vw, 7.5rem);
+  --layout-pad-2: var(--layout-pad-1);
+  --layout-pad-3: var(--layout-pad-1);
+  --layout-pad-4: var(--layout-pad-1);
+  --layout-pad-5: var(--layout-pad-1);
+  --layout-max-width: 90rem; /* 1200 px de contenido + 2 × 120 de margen */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --semantic-color-bg-primary: oklch(0.155 0.004 260);
+    --semantic-color-bg-secondary: oklch(0.19 0.005 260);
+    --semantic-color-text-primary: oklch(0.93 0.01 85);
+    --semantic-color-text-secondary: oklch(0.74 0.008 85);
+    --semantic-color-text-tertiary: oklch(0.66 0.008 85);
+    --semantic-color-border-subtle: oklch(0.3 0.006 260);
+    --semantic-color-border-default: oklch(0.42 0.006 260);
+    --semantic-color-border-strong: oklch(0.93 0.01 85);
+    --semantic-color-primary: oklch(0.76 0.09 82);
+    --semantic-color-primary-text: oklch(0.78 0.085 82);
+    --semantic-color-link-default: oklch(0.93 0.01 85);
+    --semantic-color-link-hover: oklch(0.78 0.085 82);
+    --semantic-color-state-success-text: oklch(0.64 0.13 250);
+    --semantic-color-state-error-text: oklch(0.66 0.14 55);
+    --semantic-color-state-success: oklch(0.64 0.13 250);
+    --semantic-color-state-error: oklch(0.66 0.14 55);
+    --semantic-color-state-focus: oklch(0.78 0.085 82);
+    --haber-grado: 20;
+  }
+}
+:root[data-theme="dark"] {
+  --semantic-color-bg-primary: oklch(0.155 0.004 260);
+  --semantic-color-bg-secondary: oklch(0.19 0.005 260);
+  --semantic-color-text-primary: oklch(0.93 0.01 85);
+  --semantic-color-text-secondary: oklch(0.74 0.008 85);
+  --semantic-color-text-tertiary: oklch(0.66 0.008 85);
+  --semantic-color-border-subtle: oklch(0.3 0.006 260);
+  --semantic-color-border-default: oklch(0.42 0.006 260);
+  --semantic-color-border-strong: oklch(0.93 0.01 85);
+  --semantic-color-primary: oklch(0.76 0.09 82);
+  --semantic-color-primary-text: oklch(0.78 0.085 82);
+  --semantic-color-link-default: oklch(0.93 0.01 85);
+  --semantic-color-link-hover: oklch(0.78 0.085 82);
+  --semantic-color-state-success-text: oklch(0.64 0.13 250);
+  --semantic-color-state-error-text: oklch(0.66 0.14 55);
+  --semantic-color-state-success: oklch(0.64 0.13 250);
+  --semantic-color-state-error: oklch(0.66 0.14 55);
+  --semantic-color-state-focus: oklch(0.78 0.085 82);
+  --haber-grado: 20;
+}

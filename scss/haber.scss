@@ -1,0 +1,49 @@
+/* capa: aplicación — Rédito v5. Newsreader + cifras en Hito v0.5, sobre SYX.
+   Identidad: mind-system/knowledges/branding/perception-of-prestige.rules.md de SYX
+   (contención, coherencia sistémica, precisión de detalle, paleta reducida, vacío como señal).
+   Medidas: gridcalc (skill--grid-system) sobre el archivo de Newsreader, peso a peso:
+   gridcalc font fonts/newsreader.woff2 --axes wght=…,opsz=… --sample datos/textos.txt
+   gridcalc compose --font fonts/newsreader.woff2 --sample datos/textos.txt --axes wght=400 --optical-sizing auto
+            --use reading --density spacious --max 1440 --heading-steps 6 --type-ratio 1.333 --heading-division 4
+            --snap-baseline --body 18,20
+   gridcalc clamp --min … --max … (360 → 1440 px) · ver GRID-SPEC.md */
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Rédito · punto de entrada. Compila a css/haber.css:
+//   npm run css        (sass scss/haber.scss css/haber.css --no-source-map)
+// El orden de este archivo ES la cascada: no reordenar sin mirar el README.
+// ─────────────────────────────────────────────────────────────────────────────
+@use "sass:meta";
+
+// Orden de capas de SYX: la aplicación va en syx.app, entre organismos y utilidades.
+@layer syx.reset, syx.base, syx.tokens, syx.atoms, syx.molecules, syx.organisms, syx.app, syx.utilities;
+
+// 1 · Fuera de capa (deben ganar a los tokens de SYX)
+@include meta.load-css("base/fuentes");
+@include meta.load-css("tokens/syx");
+@include meta.load-css("tokens/proyecto");
+@include meta.load-css("tokens/preferencias");
+
+// 2 · Reglas de la aplicación
+@layer syx.app {
+  /* syx-reuse-file: layout-grid coloca la página; org-site-header, mol-disclosure, mol-tabs,
+     atom-table, atom-avatar, atom-check, mol-form-field y atom-btn se usan tal cual (tokens
+     escritos en nuestros contenedores); estos bloques solo componen la portada */
+  @include meta.load-css("base/base");
+  @include meta.load-css("componentes/marca");
+  @include meta.load-css("componentes/barra");
+  @include meta.load-css("componentes/secciones-temas");
+  @include meta.load-css("componentes/fichas");
+  @include meta.load-css("zonas/entrada");
+  @include meta.load-css("zonas/secciones");
+  @include meta.load-css("zonas/mercados");
+  @include meta.load-css("componentes/graficos");
+  @include meta.load-css("zonas/desarrollo");
+  @include meta.load-css("componentes/publicidad");
+  @include meta.load-css("zonas/opinion");
+  @include meta.load-css("zonas/profundidad");
+  @include meta.load-css("componentes/boletines");
+  @include meta.load-css("zonas/pie");
+  @include meta.load-css("componentes/lectura");
+  @include meta.load-css("utilidades/movimiento-foco");
+}

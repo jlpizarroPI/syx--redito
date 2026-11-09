@@ -1,0 +1,57 @@
+// Zona 6 · mercados: banda densa (alternancia de densidad, atlas 06.2).
+/* syx-reuse-file: coloca la banda de mercados en layout-grid de SYX; mol-tabs se usa tal cual con tokens */
+/* ═════ 6 · mercados: banda densa (alternancia de densidad, 06.2) ═════ */
+/* syx-reuse: checked layout-grid (fondo) — banda a sangre con papel 2 para el bloque denso */
+.haber-banda {
+  background: var(--haber-papel-2);
+  padding-block: var(--haber-v8);
+}
+.haber-banda > .layout-grid {
+  row-gap: var(--haber-v6);
+}
+/* syx-reuse: checked mol-tabs (se usa tal cual con syx-tabs.js) — tokens escritos en el contenedor */
+.haber-pestanas {
+  --component-tabs-indicator-color: var(--haber-laton);
+  --component-tabs-tab-color: var(--haber-tinta-2);
+  --component-tabs-tab-color-hover: var(--haber-tinta);
+  --component-tabs-tab-color-selected: var(--haber-tinta);
+  --component-tabs-tab-font-weight: var(--haber-peso-medio);
+  --component-tabs-border-color: var(--haber-filete);
+  --component-tabs-panel-padding-block: var(--haber-v4);
+  --component-tabs-tab-padding-inline: var(--haber-inner);
+  --component-tabs-tab-padding-block: var(--haber-v2);
+  min-inline-size: 0;
+}
+
+.haber-graf-bloque {
+  display: grid;
+  gap: var(--haber-v3);
+  align-content: start;
+  min-inline-size: 0;
+}
+/* syx-reuse: checked mol-tabs__panel — el contenido del panel se apila en su propio contenedor */
+.haber-panel {
+  display: grid;
+  gap: var(--haber-v3);
+  min-inline-size: 0;
+}
+.haber-graf__titulo {
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+}
+.haber-graf__fuente {
+  font-size: var(--haber-menor-tam);
+  font-style: italic;
+  color: var(--haber-tinta-2);
+}
+.haber-datos-lateral {
+  display: grid;
+  gap: var(--haber-v6);
+  align-content: start;
+}
+/* syx-reuse: checked mol-disclosure (se usa tal cual) — la vista de tabla de cada gráfico (skill dataviz) */
+.haber-graf__datos {
+  font-size: var(--haber-firma-tam);
+  --component-disclosure-summary-padding-block: var(--haber-v1);
+  --component-disclosure-summary-color: var(--haber-laton-texto);
+}

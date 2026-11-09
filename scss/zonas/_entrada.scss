@@ -1,0 +1,152 @@
+// Zona 5 · entrada (N1 + N2 + Lo último + Las claves). Sin publicidad (atlas 06.3).
+@use "../abstracts" as *;
+/* syx-reuse-file: coloca la apertura en layout-grid de SYX; las piezas consultaron mol-card y mol-tabs */
+
+/* ═════ 5 · entrada (N1 + N2): sin publicidad (06.3) ═════ */
+.haber-entrada {
+  padding-block: var(--haber-v6) var(--haber-seccion);
+  row-gap: var(--haber-v8);
+}
+/* syx-reuse: checked mol-card (marco y sombra) — la pieza de abre es imagen y texto sobre la retícula */
+.haber-abre {
+  display: grid;
+  gap: var(--haber-v4);
+  align-content: start;
+}
+/* syx-reuse: checked mol-card__media — figura con pie de crédito; la proporción reserva el hueco (sin CLS) */
+.haber-foto {
+  display: grid;
+  gap: var(--haber-v2);
+}
+.haber-foto__img {
+  inline-size: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background: var(--haber-papel-2);
+}
+.haber-foto__pie {
+  font-size: var(--haber-menor-tam);
+  color: var(--haber-tinta-2);
+  text-align: end;
+}
+.haber-abre__texto {
+  display: grid;
+  gap: var(--haber-v4);
+  max-inline-size: 46em;
+}
+.haber-abre__titulo {
+  font-size: var(--haber-abre-tam);
+  line-height: var(--haber-abre-lh);
+  font-weight: var(--haber-peso-display);
+  letter-spacing: var(--haber-track-abre);
+  margin-inline-start: var(--haber-optico-abre);
+  text-wrap: balance;
+}
+.haber-abre__entradilla {
+  font-size: var(--haber-paso1-tam);
+  line-height: var(--haber-paso1-lh);
+  font-style: italic;
+  color: var(--haber-tinta-2);
+  max-inline-size: 26em;
+  text-wrap: pretty;
+}
+/* syx-reuse: checked atom-list — enlaces relacionados con flecha, entre filetes */
+.haber-relacionadas {
+  display: grid;
+  gap: var(--haber-v2);
+  padding-block-start: var(--haber-v3);
+  border-block-start: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-relacionadas__enlace {
+  display: inline-block;
+  min-block-size: 1.5rem;             /* objetivo de 24 px (WCAG 2.5.8) */
+  font-size: var(--haber-firma-tam);
+  font-weight: var(--haber-peso-medio);
+  color: var(--haber-tinta);
+  text-decoration: none;
+}
+.haber-relacionadas__enlace::before {
+  content: "→ ";
+  color: var(--haber-laton-texto);
+}
+.haber-lateral-entrada {
+  display: grid;
+  gap: var(--haber-v6);
+  align-content: start;
+}
+@include entre(md, xl) {
+  .haber-lateral-entrada {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--haber-gutter);
+  }
+  /* syx-reuse: checked atom-list — «lo último» ocupa la fila entera en tableta */
+  .haber-ultimo {
+    grid-column: 1 / -1;
+  }
+}
+/* syx-reuse: checked mol-card — pieza secundaria: titular a la izquierda, miniatura a la derecha */
+.haber-segunda {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7rem;
+  gap: var(--haber-padding);
+  align-items: start;
+  padding-block-start: var(--haber-v3);
+  border-block-start: var(--haber-fino) solid var(--haber-filete);
+}
+@include desde(xl) {
+  .haber-segunda {
+    grid-template-columns: minmax(0, 1fr) 9rem;
+  }
+}
+.haber-segunda__img {
+  grid-column: 2;
+  grid-row: 1;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--haber-papel-2);
+}
+.haber-segunda__texto {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  gap: var(--haber-v3);
+}
+.haber-segunda__titulo {
+  font-size: var(--haber-paso1-tam);
+  line-height: var(--haber-pieza-lh);
+  font-weight: var(--haber-peso-medio);
+  letter-spacing: var(--haber-track-pieza);
+  text-wrap: balance;
+}
+/* syx-reuse: checked atom-list — «lo último»: hora en las cifras de Hito y titular */
+.haber-ultimo {
+  display: grid;
+  gap: var(--haber-v3);
+  padding-block-start: var(--haber-v3);
+  border-block-start: var(--haber-fino) solid var(--haber-filete-fuerte);
+}
+.haber-ultimo__lista > li {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: var(--haber-inner);
+  padding-block: var(--haber-v2);
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-ultimo__hora {
+  font-family: var(--haber-cifras);
+  font-size: var(--haber-firma-tam);
+  font-variant-numeric: tabular-nums;
+  color: var(--haber-laton-texto);
+}
+.haber-ultimo__enlace {
+  display: inline-block;
+  min-block-size: 1.5rem;             /* objetivo de 24 px (WCAG 2.5.8) */
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta);
+  text-decoration: none;
+}
+.haber-ultimo__enlace:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--haber-laton);
+}

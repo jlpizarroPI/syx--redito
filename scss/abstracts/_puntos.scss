@@ -1,0 +1,25 @@
+// Puntos de corte. Una sola fuente: los mismos valores usa la retícula (GRID-SPEC.md).
+// Mobile first: solo hay min-width; «entre» existe para el tramo 48–80em del menú.
+@use "sass:map";
+
+$puntos: (
+  md: 48em,   //  768 px · tableta: las filas compactas pasan a tarjeta
+  lg: 64em,   // 1024 px · aparece la marca y suben sección/respiro a 5u/7u
+  xl: 80em,   // 1280 px · navegación con megamenús · OJO: aquí layout-grid de SYX pone las col-lg lado a lado
+) !default;
+
+@function punto($nombre) {
+  @if not map.has-key($puntos, $nombre) {
+    @error "Punto de corte desconocido: #{$nombre}. Usa #{map.keys($puntos)}.";
+  }
+  @return map.get($puntos, $nombre);
+}
+
+@mixin desde($nombre) {
+  @media (min-width: punto($nombre)) { @content; }
+}
+
+// Tramo cerrado: el máximo queda 0,01em por debajo del siguiente punto.
+@mixin entre($desde, $hasta) {
+  @media (min-width: punto($desde)) and (max-width: punto($hasta) - 0.01em) { @content; }
+}

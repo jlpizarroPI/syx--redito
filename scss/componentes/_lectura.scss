@@ -1,0 +1,43 @@
+// Reglas contra la fatiga: Las claves y tiempo de lectura (ver README).
+/* ═════ lectura sin fatiga (README § Por qué): Weinreich et al. 2008 / Nielsen 2008 — se lee ≈ 20 %
+   de una página; Nielsen 2018 — 57 % de la mirada en la primera pantalla; Cowan 2001 — ~4 piezas
+   en la memoria de trabajo, por eso «Las claves» son tres ═════ */
+/* syx-reuse: checked atom-list, mol-alert — «las claves»: lo esencial arriba, en tres líneas */
+.haber-claves {
+  display: grid;
+  gap: var(--haber-v3);
+  padding: var(--haber-v4) var(--haber-padding);
+  background: var(--haber-papel-2);
+  border-inline-start: var(--haber-grueso, 3px) solid var(--haber-laton);
+  max-inline-size: 36em;
+}
+.haber-claves__lista {
+  display: grid;
+  gap: var(--haber-v2);
+}
+.haber-claves__lista > li {
+  display: grid;
+  grid-template-columns: var(--haber-padding) 1fr;
+  font-size: var(--haber-firma-tam);
+  font-weight: var(--haber-peso-medio);
+}
+.haber-claves__lista > li::before {
+  content: "";
+  inline-size: var(--haber-inner);
+  block-size: var(--haber-inner);
+  margin-block-start: 0.55em;
+  background: var(--haber-laton);
+}
+/* syx-reuse: checked atom-pill — el tiempo de lectura es texto menor tras el sumario, no una cápsula */
+.haber-lectura {
+  white-space: nowrap;
+  font-family: var(--haber-cifras);
+  color: var(--haber-laton-texto);
+}
+.haber-lectura::before {
+  content: "· ";
+  color: var(--haber-tinta-2);
+}
+.haber-barra__letra {
+  font-weight: var(--haber-peso-rotulo);
+}

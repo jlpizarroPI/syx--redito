@@ -1,0 +1,4 @@
+// Preferencias del sistema del lector.
+@mixin sin-movimiento {
+  @media (prefers-reduced-motion: reduce) { @content; }
+}

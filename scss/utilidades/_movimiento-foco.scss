@@ -1,0 +1,13 @@
+// Movimiento reducido, foco visible y selección.
+/* ═════ movimiento, foco y selección ═════ */
+/* el movimiento reducido ya lo emite cada @include syx.transition() junto a su transición */
+:where(.haber-titular, .haber-mas, .haber-nav__boton, .haber-secciones__enlace, .haber-temas__enlace,
+       .haber-ficha__enlace, .haber-ultimo__enlace, .haber-leido__enlace, .haber-cajon__sub,
+       .haber-mega__enlace, .haber-mega__todo, .haber-mega__destacado, .haber-pie__enlace,
+       .haber-relacionadas__enlace, .haber-marca__enlace):focus-visible {
+  outline: var(--semantic-focus-ring-width) solid var(--haber-laton-texto);
+  outline-offset: var(--semantic-focus-ring-offset);
+}
+::selection {
+  background: color-mix(in oklch, var(--haber-laton) 35%, transparent);
+}

@@ -1,0 +1,73 @@
+// Fila de secciones y temas con desplazamiento horizontal.
+@use "syx-design-system/scss/abstracts/mixins/mixins" as syx;
+@use "../abstracts" as *;
+
+/* ═════ 3 · secciones y temas ═════ */
+/* syx-reuse: checked org-site-header__nav — fila de secciones desplazable en móvil, centrada desde 48em */
+.haber-secciones {
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+}
+@include desde(xl) {
+  .haber-secciones {
+    display: none;                    /* desde 80em la barra muestra las secciones */
+  }
+}
+.haber-secciones__lista,
+.haber-temas__lista {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0 var(--haber-padding);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.haber-secciones__lista::-webkit-scrollbar,
+.haber-temas__lista::-webkit-scrollbar {
+  display: none;
+}
+.haber-secciones__lista > li,
+.haber-temas__lista > li {
+  flex: none;
+  scroll-snap-align: start;
+}
+.haber-secciones__enlace {
+  display: inline-block;
+  line-height: 2.75rem;
+  color: var(--haber-tinta);
+  text-decoration: none;
+  font-size: var(--haber-firma-tam);
+  font-weight: var(--haber-peso-medio);
+  background: linear-gradient(var(--haber-laton), var(--haber-laton)) no-repeat 50% calc(100% - 0.5rem) / 0 var(--haber-fino);
+  @include syx.transition(background-size var(--haber-duracion-lenta) var(--haber-curva));
+}
+.haber-secciones__enlace[aria-current="page"],
+.haber-secciones__enlace:hover {
+  background-size: 100% var(--haber-fino);
+}
+/* syx-reuse: checked mol-label-group, atom-pill (cápsula) — los temas son enlaces de texto en una fila */
+.haber-temas {
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-temas__fila {
+  display: flex;
+  align-items: baseline;               /* rótulo en versalitas y enlaces en cursiva: misma línea base */
+  gap: var(--haber-padding);
+  min-inline-size: 0;
+}
+.haber-temas__titulo {
+  flex: none;
+}
+.haber-temas__lista {
+  min-inline-size: 0;
+}
+.haber-temas__enlace {
+  display: inline-block;
+  line-height: 2.75rem;
+  font-size: var(--haber-firma-tam);
+  font-style: italic;
+  color: var(--haber-tinta-2);
+  text-decoration: none;
+}
+.haber-temas__enlace:hover {
+  color: var(--haber-tinta);
+}

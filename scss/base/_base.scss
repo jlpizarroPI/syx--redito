@@ -1,0 +1,158 @@
+// Base de la portada: cuerpo, rótulos, titulares, firma, tipografía común.
+@use "syx-design-system/scss/abstracts/mixins/mixins" as syx;
+/* ═════ base ═════ */
+/* syx-reuse: checked body base de SYX — necesita la letra y el ritmo medidos de Newsreader */
+.haber-pagina {
+  background: var(--haber-papel);
+  color: var(--haber-tinta);
+  font-family: var(--semantic-font-family-primary);
+  font-size: var(--haber-cuerpo);
+  line-height: var(--haber-interlineado);
+  font-weight: var(--haber-peso-texto);
+  font-kerning: normal;
+  font-synthesis: none;
+  font-variant-numeric: proportional-nums;
+  hanging-punctuation: first allow-end;
+  -webkit-font-smoothing: antialiased;
+  @include syx.transition(background-color var(--haber-duracion-lenta) var(--haber-curva), color var(--haber-duracion-lenta) var(--haber-curva));
+}
+.haber-pagina :where(h1, h2, h3, p, ul, ol, figure, blockquote, fieldset) {
+  margin: 0;
+}
+.haber-pagina :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+.haber-pagina :where(ul, ol) > li {
+  margin: 0;                          /* el li base de SYX trae margen superior */
+}
+.haber-pagina :where(h1, h2, h3) {
+  font-family: var(--semantic-font-family-heading);
+  font-weight: var(--haber-peso-texto);
+}
+.haber-pagina :where(p, li, figcaption, caption, th, td) {
+  line-height: var(--haber-interlineado);
+}
+.haber-pagina img {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+/* el texto toca la línea: recorte a versal y línea base (los espacios, de tinta a tinta) */
+/* syx-reuse: checked atom-txt, atom-title — SYX no recorta la caja de línea: text-box en los bloques de texto de la portada (incluida .haber-nota) */
+.haber-rotulo,
+.haber-marca__nombre,
+.haber-abre__titulo,
+.haber-abre__entradilla,
+.haber-firma,
+.haber-seccion__titulo,
+.haber-tarjeta__titulo,
+.haber-tarjeta__texto,
+.haber-segunda__titulo,
+.haber-noticia__titulo,
+.haber-noticia__texto,
+.haber-tribuna__cita,
+.haber-graf__titulo,
+.haber-graf__fuente,
+.haber-pie__marca,
+.haber-nota {
+  text-box: trim-both cap alphabetic;
+}
+
+/* syx-reuse: checked atom-link — el titular es un enlace que hereda letra y color */
+.haber-titular {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: var(--haber-fino);
+  text-underline-offset: 0.18em;
+  text-decoration-color: transparent;
+  @include syx.transition(text-decoration-color var(--haber-duracion) var(--haber-curva));
+}
+.haber-titular:hover {
+  text-decoration-color: var(--haber-laton);
+}
+
+/* syx-reuse: checked atom-pill, atom-txt — el rótulo de prensa es versal espaciada con filete corto */
+.haber-rotulo {
+  display: block;
+  font-size: var(--haber-menor-tam);
+  line-height: var(--haber-u);
+  font-weight: var(--haber-peso-rotulo);
+  text-transform: uppercase;
+  letter-spacing: var(--haber-track-rotulo);
+  color: var(--haber-laton-texto);
+}
+.haber-rotulo::before {
+  content: "";
+  display: inline-block;
+  inline-size: var(--haber-v4);
+  block-size: var(--haber-fino);
+  margin-inline-end: var(--haber-inner);
+  vertical-align: 0.33em;
+  background: var(--haber-laton);
+}
+/* la publicidad se nombra siempre y no se viste de latón (06.3: claridad, sin camuflarse) */
+.haber-rotulo--publicidad {
+  color: var(--haber-tinta-2);
+}
+.haber-rotulo--publicidad::before {
+  background: var(--haber-tinta-2);
+}
+
+/* syx-reuse: checked atom-link--primary — «ver más» de cada sección, con flecha */
+.haber-mas {
+  display: inline-block;
+  min-block-size: 1.5rem;             /* objetivo de 24 px (WCAG 2.5.8) */
+  line-height: 1.5rem;
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-laton-texto);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.haber-mas::after {
+  content: " →";
+  display: inline-block;
+  @include syx.transition(transform var(--haber-duracion) var(--haber-curva));
+}
+.haber-mas:hover::after {
+  transform: translateX(0.2em);
+}
+
+/* syx-reuse: checked mol-card__footer — la firma vive en el texto, sin caja */
+.haber-firma {
+  font-size: var(--haber-firma-tam);
+  letter-spacing: var(--haber-track-dato);
+  color: var(--haber-tinta-2);
+}
+/* syx-reuse: checked syx-text-nowrap, atom-badge — no hay utilidad de no-corte en SYX v5.1; el tiempo de lectura no se parte */
+.haber-firma__tiempo,
+.haber-lectura {
+  white-space: nowrap;
+}
+
+.haber-firma__autor {
+  font-weight: var(--haber-peso-rotulo);
+  color: var(--haber-tinta);
+}
+.haber-firma__mesa::before,
+.haber-firma__tiempo::before {
+  content: "";
+  display: inline-block;
+  inline-size: var(--haber-v4);
+  block-size: var(--haber-fino);
+  margin-inline: var(--haber-inner);
+  vertical-align: middle;
+  background: var(--haber-laton);
+}
+
+/* ═════ centrado óptico ═════
+   SYX centra controles y textos en la caja de línea. Con Newsreader (ascendentes muy altos) esa caja no
+   está centrada en las mayúsculas: el texto queda alto respecto de su casilla, icono o botón (medido:
+   1,3–3 px). Envolver el texto en .haber-optico recorta su caja a «de la línea base a la altura de las
+   mayúsculas», y entonces cualquier centrado (flex, botón) cae en el centro óptico, sin números mágicos. */
+/* syx-reuse: checked atom-check, atom-btn, org-site-header — sus tokens no exponen el recorte de línea */
+.haber-optico {
+  display: block;
+  text-box: trim-both cap alphabetic;
+}

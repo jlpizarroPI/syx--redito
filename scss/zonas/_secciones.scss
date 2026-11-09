@@ -1,0 +1,16 @@
+// Encabezado y ritmo común de las secciones.
+/* ═════ secciones ═════ */
+.haber-seccion__cabeza {
+  padding-block-start: var(--haber-v3);
+  border-block-start: var(--haber-fino) solid var(--haber-filete-fuerte);
+}
+.haber-seccion__titulo {
+  font-size: var(--haber-seccion-tam);
+  line-height: var(--haber-seccion-lh);
+  font-weight: var(--haber-peso-marca);
+  letter-spacing: var(--haber-track-cita);
+}
+.haber-zona {
+  padding-block: var(--haber-v8) var(--haber-seccion);
+  row-gap: var(--haber-v6);
+}

@@ -1,0 +1,11 @@
+// Preferencias del lector: tamaño de letra (control «Aa») y más contraste.
+/* tamaño del texto elegido por el lector (haber.js): todo va en rem, así escala la página entera */
+:root[data-letra="1"] { font-size: 112.5%; }
+:root[data-letra="2"] { font-size: 125%; }
+/* más contraste si el sistema lo pide: la tinta secundaria se acerca a la principal */
+@media (prefers-contrast: more) {
+  :root {
+    --semantic-color-text-secondary: var(--semantic-color-text-primary);
+    --semantic-color-border-subtle: var(--semantic-color-border-default);
+  }
+}

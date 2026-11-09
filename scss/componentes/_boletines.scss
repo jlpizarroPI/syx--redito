@@ -1,0 +1,50 @@
+// Zona 10 · boletines.
+@use "../abstracts" as *;
+
+/* ═════ 10 · boletines ═════ */
+/* syx-reuse: checked mol-form-field, atom-check, atom-btn (se usan tal cual) — el bloque solo los compone */
+.haber-boletines {
+  background: var(--haber-papel-2);
+  padding-block: var(--haber-seccion);
+}
+.haber-boletines > .layout-grid {
+  row-gap: var(--haber-v6);
+  align-items: start;
+}
+.haber-boletines__texto {
+  display: grid;
+  gap: var(--haber-v4);
+  max-inline-size: 26em;
+}
+.haber-boletines__form {
+  display: grid;
+  gap: var(--haber-v4);
+  --component-form-field-margin-bottom: 0;   /* el margen del campo descuadraba el botón (alineación por abajo) */
+}
+.haber-boletines__opciones {
+  display: grid;
+  gap: var(--haber-v2);
+  padding: 0;
+  border: 0;
+}
+.haber-boletines__opciones > legend {
+  padding: 0;
+  margin-block-end: var(--haber-v3);
+}
+@include desde(md) {
+  .haber-boletines__form {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: var(--haber-inner);  /* campo y botón se leen como una sola pieza */
+  }
+  .haber-boletines__opciones {
+    grid-column: 1 / -1;
+  }
+}
+.haber-boletines__boton {
+  min-block-size: var(--component-form-field-min-height);   /* misma altura que el campo */
+  --component-button-primary-filled-bg: var(--haber-tinta);
+  --component-button-primary-filled-border: var(--haber-tinta);
+  --component-button-primary-filled-color: var(--haber-papel);
+  --component-button-font-family: var(--semantic-font-family-primary);
+}

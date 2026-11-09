@@ -1,0 +1,109 @@
+// Tokens --haber-*: leen roles semánticos; las longitudes salen de gridcalc (GRID-SPEC.md).
+@use "../abstracts" as *;
+
+/* ── 2 · tokens del proyecto: leen roles semánticos; las longitudes salen de gridcalc ── */
+:root {
+  /* cuerpo fluido 18 → 20 px (altura x de Newsreader 0,426: 7,7 → 8,5 px de ojo), interlineado
+     1,556 → u = 28 → 32 px; retícula base u/4 = 7 → 8 px */
+  --haber-cuerpo: clamp(1.125rem, 1.0833rem + 0.1852vw, 1.25rem);
+  --haber-u: clamp(1.75rem, 1.6667rem + 0.3704vw, 2rem);
+  --haber-interlineado: 1.556;
+  --haber-medida: 31.3em;         /* 75 caracteres reales de media (char 0,3974 → 0,3991 em, opsz = cuerpo) */
+  --haber-cifras: "Hito Cifras", "Newsreader", Georgia, serif;
+
+  /* escala de cuarta (1,333) con medios pasos; interlineado = múltiplo de u/4 en 360 y 1440 px,
+     dentro de los márgenes de typography-systems de SYX (display 1,05–1,15 · h2–h3 1,2–1,3) */
+  --haber-menor-tam: clamp(0.8438rem, 0.8125rem + 0.1389vw, 0.9375rem);    /* −1 · 13,5 → 15 px: versalitas de rótulo */
+  --haber-firma-tam: clamp(0.9375rem, 0.9167rem + 0.0926vw, 1rem);         /* 15 → 16 px: texto menor en caja baja */
+  --haber-paso1-tam: clamp(1.4996rem, 1.4441rem + 0.2469vw, 1.6663rem);    /* +1 */
+  --haber-paso1-lh: clamp(2.1875rem, 2.0833rem + 0.463vw, 2.5rem);         /* 35 → 40 (1,46 → 1,5) */
+  --haber-pieza-tam: clamp(1.7319rem, 1.6679rem + 0.2843vw, 1.9238rem);    /* +1½ */
+  --haber-pieza-lh: clamp(2.1875rem, 2.0833rem + 0.463vw, 2.5rem);         /* 35 → 40 (1,26 → 1,3) */
+  --haber-abre-tam: clamp(2.6647rem, 2.2374rem + 1.8993vw, 3.9467rem);     /* +3 → +4: con foto encima, el titular baja un paso */
+  --haber-abre-lh: clamp(3.0625rem, 2.5833rem + 2.1296vw, 4.5rem);         /* 49 → 72 (1,15 → 1,14) */
+  --haber-cita-tam: clamp(1.999rem, 1.3498rem + 2.8855vw, 3.9467rem);      /* +2 → +4 */
+  --haber-cita-lh: clamp(2.625rem, 2rem + 2.7778vw, 4.5rem);               /* 42 → 72 (1,31 → 1,14) */
+  --haber-marca-tam: clamp(3.552rem, 2.3984rem + 5.1271vw, 7.0128rem);     /* +4 → +6 */
+  --haber-marca-lh: clamp(3.9375rem, 2.75rem + 5.2778vw, 7.5rem);          /* 63 → 120 */
+  --haber-seccion-tam: clamp(1.999rem, 1.925rem + 0.3291vw, 2.2211rem);    /* +2 · 32 → 35,5 px */
+  --haber-seccion-lh: clamp(2.1875rem, 2.0833rem + 0.463vw, 2.5rem);       /* 35 → 40 */
+  --haber-pie-tam: clamp(1.999rem, 1.6784rem + 1.4248vw, 2.9607rem);       /* +2 → +3 */
+  --haber-pie-lh: clamp(2.625rem, 2.3333rem + 1.2963vw, 3.5rem);           /* 42 → 56 */
+
+  /* tracking por tamaño (typography-systems de SYX). Newsreader a opsz 72 ya cierra su
+     espaciado de display: el tracking solo remata. Los rótulos van en versal: +0,1 em */
+  --haber-track-marca: -0.02em;
+  --haber-track-abre: -0.015em;
+  --haber-track-cita: -0.01em;
+  --haber-track-pieza: -0.008em;
+  --haber-track-rotulo: 0.1em;
+  --haber-track-dato: 0.01em;
+
+  /* pesos por tamaño: en Newsreader el titular grande va en Regular de óptica 72 (el contraste
+     lo da el corte de display, no el peso); la marca, Medium. En oscuro el grado resta 20 de wght */
+  --haber-grado: 0;
+  --haber-peso-display: calc(400 - var(--haber-grado));
+  --haber-peso-marca: calc(500 - var(--haber-grado));
+  --haber-peso-cita: calc(350 - var(--haber-grado));
+  --haber-peso-texto: calc(400 - var(--haber-grado));
+  --haber-peso-medio: calc(500 - var(--haber-grado));
+  --haber-peso-rotulo: calc(600 - var(--haber-grado));
+  --haber-peso-dato: calc(500 - var(--haber-grado));
+
+  /* alineación óptica: blanco medio antes de la primera tinta (start_white de gridcalc) */
+  --haber-optico-abre: -0.0292em;   /* wght 400 · opsz 72 */
+  --haber-optico-pieza: -0.0285em;  /* wght 500 · opsz 30 */
+  --haber-optico-cita: -0.0066em;   /* cursiva 350 · opsz 60 */
+
+  /* cadena de proximidad (compose spacious, razón 2): micro < inner < padding < gutter ≤ margen */
+  --haber-micro: 0.25rem;
+  --haber-inner: clamp(0.5rem, 0.4583rem + 0.1852vw, 0.625rem);
+  --haber-padding: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
+  --haber-gutter: var(--layout-gap-1);
+  /* ritmo vertical (C12): todo espacio vertical es múltiplo de u/4. Con text-box recortado a
+     mayúscula y línea base, cada distancia es de tinta a tinta */
+  --haber-v1: calc(var(--haber-u) / 4);
+  --haber-v2: calc(var(--haber-u) / 2);
+  --haber-v3: calc(var(--haber-u) * 0.75);
+  --haber-v4: var(--haber-u);
+  --haber-v6: calc(var(--haber-u) * 1.5);
+  --haber-v8: calc(var(--haber-u) * 2);
+  /* separación de sección y bloque de respiro en u enteros; en móvil menos (06.2 §18: en mobile
+     reducir y simplificar): 3u y 4u; desde 64em, 5u y 7u (la sección spacious de compose) */
+  --haber-n-seccion: 3;
+  --haber-n-vacio: 4;
+  --haber-seccion: calc(var(--haber-n-seccion) * var(--haber-u));
+  --haber-vacio: calc(var(--haber-n-vacio) * var(--haber-u));
+  --haber-parrafo: 0.75lh;
+
+  /* color: roles semánticos */
+  --haber-papel: var(--semantic-color-bg-primary);
+  --haber-papel-2: var(--semantic-color-bg-secondary);
+  --haber-tinta: var(--semantic-color-text-primary);
+  --haber-tinta-2: var(--semantic-color-text-secondary);
+  --haber-filete: var(--semantic-color-border-subtle);
+  --haber-filete-fuerte: var(--semantic-color-border-strong);
+  --haber-laton: var(--semantic-color-primary);
+  --haber-laton-texto: var(--semantic-color-primary-text);
+  --haber-sube: var(--semantic-color-state-success-text);
+  --haber-cae: var(--semantic-color-state-error-text);
+  --haber-graf-sube: var(--semantic-color-state-success);
+  --haber-graf-cae: var(--semantic-color-state-error);
+  --haber-graf-enfasis: var(--semantic-color-primary);          /* latón: la serie que es la noticia */
+  --haber-graf-contexto: var(--semantic-color-border-default);  /* gris de contexto (énfasis = 1 tono + gris) */
+  --haber-graf-rejilla: var(--semantic-color-border-subtle);
+  --haber-barra-alto: 3.75rem;                                   /* alto de org-site-header de SYX */
+  --haber-z-mega: var(--component-header-z-index);
+  --haber-fino: var(--semantic-border-width-thin);
+  --haber-grueso: var(--semantic-border-width-thick);
+  --haber-duracion: var(--semantic-duration-fast);
+  --haber-duracion-lenta: var(--semantic-duration-slow);
+  --haber-curva: var(--semantic-easing-standard);
+}
+
+@include desde(lg) {
+  :root {
+    --haber-n-seccion: 5;
+    --haber-n-vacio: 7;
+  }
+}

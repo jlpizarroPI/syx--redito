@@ -1,0 +1,50 @@
+// Pie con el índice completo.
+/* syx-reuse-file: compone el pie sobre layout-grid; .haber-nota nace en base/_base (atom-txt, atom-title consultados) */
+/* ═════ pie ═════ */
+/* syx-reuse: checked org-site-header — pie del diario: índice, servicios, corporativo y legal */
+.haber-pie {
+  padding-block: var(--haber-v8) var(--haber-seccion);
+  border-block-start: var(--haber-fino) solid var(--haber-filete-fuerte);
+}
+.haber-pie > .layout-grid {
+  row-gap: var(--haber-v6);
+}
+.haber-pie__cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--haber-v2) var(--haber-gutter);
+}
+.haber-pie__marca {
+  font-size: var(--haber-pie-tam);
+  line-height: var(--haber-pie-lh);
+  font-weight: var(--haber-peso-marca);
+  letter-spacing: var(--haber-track-marca);
+}
+.haber-pie__lema {
+  font-style: italic;
+  color: var(--haber-tinta-2);
+}
+.haber-pie__col {
+  display: grid;
+  gap: var(--haber-v3);
+  align-content: start;
+}
+.haber-pie__enlace {
+  display: inline-block;
+  min-block-size: 2.75rem;
+  line-height: 2.75rem;
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+  text-decoration: none;
+}
+.haber-pie__enlace:hover {
+  color: var(--haber-tinta);
+}
+/* syx-reuse: checked atom-txt, atom-title — nota del pie: el recorte de línea vive en base/_base */
+.haber-nota {
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+  max-inline-size: 46em;
+}

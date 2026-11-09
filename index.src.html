@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rédito · Diario de mercados</title>
+  <meta name="description" content="Portada de prueba de un diario económico ficticio sobre SYX: Newsreader en texto, cifras en Hito, publicidad integrada, megamenú y gráficos.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/syx.css">
+  <link rel="stylesheet" href="css/haber.css">
+</head>
+<body class="haber-pagina">
+  <a class="syx-skip-link" href="#principal">Ir al contenido</a>
+
+  <!-- ── 1 · cabecera de marca (solo ≥ 64em: en móvil la marca vive en la barra) ── -->
+  <div class="haber-marca">
+    <div class="layout-grid">
+      <p class="layout-grid__col-xs-12 layout-grid__col-lg-3 haber-marca__fecha"><time datetime="2026-11-09">Lunes, 9 de noviembre de 2026</time><span class="haber-marca__edicion">Edición España</span></p>
+      <p class="layout-grid__col-xs-12 layout-grid__col-lg-6 haber-marca__nombre"><a class="haber-marca__enlace" href="#principal">Rédito</a></p>
+      <p class="layout-grid__col-xs-12 layout-grid__col-lg-3 haber-marca__lema">Diario de mercados<span class="haber-marca__desde">Fundado en 2026</span></p>
+    </div>
+  </div>
+
+  <!-- ── 2 · barra fija (org-site-header de SYX) + cajón + capa ── -->
+  <header class="org-site-header haber-barra">
+    <div class="haber-barra__izq">
+      <button class="org-site-header__burger haber-barra__menu" type="button" aria-controls="menu-cajon" aria-expanded="false" aria-label="Abrir todas las secciones">
+        <span class="org-site-header__burger-line" aria-hidden="true"></span>
+        <span class="org-site-header__burger-line" aria-hidden="true"></span>
+        <span class="org-site-header__burger-line" aria-hidden="true"></span>
+      </button>
+      <a class="org-site-header__brand haber-barra__marca" href="#principal" aria-label="Rédito, portada"><span class="haber-optico">Rédito</span></a>
+    </div>
+    <nav class="org-site-header__nav haber-nav" aria-label="Secciones principales">{{NAV}}</nav>
+    <div class="org-site-header__actions haber-barra__acciones">
+      <button class="atom-btn atom-btn--tertiary atom-btn--size-sm haber-barra__boton" type="button" popovertarget="busqueda" aria-label="Buscar">
+        <span class="atom-icon atom-icon--lc-search haber-barra__icono" aria-hidden="true"></span><span class="haber-barra__texto haber-optico">Buscar</span>
+      </button>
+      <button class="atom-btn atom-btn--tertiary atom-btn--size-sm haber-barra__boton haber-barra__letra" type="button" data-haber-letra><span class="haber-optico">Aa</span><span class="syx-sr-only" data-haber-letra-estado>, tamaño del texto: normal</span></button>
+      <button class="atom-btn atom-btn--tertiary atom-btn--size-sm haber-barra__boton haber-barra__modo" type="button" data-haber-modo aria-pressed="false" aria-label="Modo oscuro" title="Modo oscuro"><span class="atom-icon atom-icon--lc-moon haber-barra__icono" aria-hidden="true"></span></button>
+      <a class="atom-btn atom-btn--primary atom-btn--filled atom-btn--size-sm haber-barra__suscripcion" href="#suscripcion"><span class="haber-optico">Suscríbete</span></a>
+    </div>
+  </header>
+  <div class="org-site-nav-overlay" aria-hidden="true"></div>
+  {{CAJON}}
+  {{MEGA}}
+  <div class="haber-busqueda" id="busqueda" popover aria-label="Buscar">
+    <form class="layout-grid haber-busqueda__form" role="search" action="#">
+      <div class="layout-grid__col-xs-12 layout-grid__col-lg-8 mol-form-field">
+        <label class="atom-label" for="busca-barra">Buscar en Rédito</label>
+        <input class="atom-input" id="busca-barra" type="search" name="q" autocomplete="off" placeholder="Empresas, índices, autores…">
+      </div>
+      <p class="layout-grid__col-xs-12 layout-grid__col-lg-4 haber-busqueda__sugerencias"><span class="haber-rotulo">Más buscado</span> Ibex 35 · Euríbor · Bono a 10 años · Inflación</p>
+    </form>
+  </div>
+
+  <!-- ── 3 · secciones (< 80em) y temas del día ── -->
+  <nav class="haber-secciones" aria-label="Secciones">
+    <div class="layout-grid"><ul class="layout-grid__col-xs-12 haber-secciones__lista">{{SECCIONES}}</ul></div>
+  </nav>
+  <nav class="haber-temas" aria-labelledby="temas-titulo">
+    <div class="layout-grid">
+      <div class="layout-grid__col-xs-12 haber-temas__fila">
+        <h2 class="haber-rotulo haber-temas__titulo" id="temas-titulo">Temas</h2>
+        <ul class="haber-temas__lista">{{TEMAS}}</ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="principal" tabindex="-1">
+    <!-- ── 4 · mercados al momento (fichas con sparkline) ── -->
+    <section class="haber-fichas" id="cierre" aria-labelledby="fichas-titulo">
+      <div class="layout-grid">
+        <div class="layout-grid__col-xs-12 haber-fichas__cabeza">
+          <h2 class="haber-rotulo" id="fichas-titulo">Al cierre</h2>
+          <a class="haber-mas" href="#mercados">Todas las cotizaciones</a>
+        </div>
+        <ul class="layout-grid__col-xs-12 haber-fichas__lista">{{FICHAS}}</ul>
+      </div>
+    </section>
+
+    <!-- ── 5 · ENTRADA (N1 + N2): sin publicidad ── -->
+    <section class="layout-grid haber-entrada" aria-label="Lo más importante">
+      <article class="layout-grid__col-xs-12 layout-grid__col-lg-8 haber-abre">
+        <figure class="haber-foto haber-foto--abre">
+          <img class="haber-foto__img" {{IMG:tesoro|(min-width: 80em) 50rem, (min-width: 48em) 90vw, 100vw}} alt="Ilustración de la fachada columnada de un edificio institucional al atardecer" width="1200" height="800" fetchpriority="high" decoding="async">
+          <figcaption class="haber-foto__pie">Ilustración: Rédito</figcaption>
+        </figure>
+        <div class="haber-abre__texto">
+          <p class="haber-rotulo">Subastas del Tesoro</p>
+          <h2 class="haber-abre__titulo"><a class="haber-titular" href="#abre">El Tesoro coloca 5.000 millones en letras y la banca sube un 2,5 %</a></h2>
+          <p class="haber-abre__entradilla">La demanda duplica lo emitido por cuarta subasta consecutiva y el tipo medio baja al 2,15 %, el más bajo desde enero.</p>
+          <p class="haber-firma">Por <span class="haber-firma__autor">Isabel Otero</span> <span class="haber-firma__mesa">Mesa de mercados</span> <span class="haber-firma__tiempo">6 min de lectura</span></p>
+          <section class="haber-claves" aria-labelledby="claves-titulo">
+            <h3 class="haber-rotulo" id="claves-titulo">Las claves</h3>
+            <ul class="haber-claves__lista">
+              <li>La demanda, 10.500 millones, duplica lo emitido.</li>
+              <li>El tipo medio baja al 2,15 %, el menor desde enero.</li>
+              <li>Los bancos suben un 2,5 % y acumulan un 12 % en el año.</li>
+            </ul>
+          </section>
+          <ul class="haber-relacionadas" aria-label="Relacionadas">
+            <li><a class="haber-relacionadas__enlace" href="#r1">Qué significa para su hipoteca la caída de las letras</a></li>
+            <li><a class="haber-relacionadas__enlace" href="#r2">Análisis: el Tesoro aprovecha la ventana antes del BCE</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="layout-grid__col-xs-12 layout-grid__col-lg-4 haber-lateral-entrada">
+        <article class="haber-segunda">
+          <img class="haber-segunda__img" {{IMG:bolsa|(min-width: 80em) 9rem, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <div class="haber-segunda__texto">
+            <p class="haber-rotulo">Bolsa</p>
+            <h3 class="haber-segunda__titulo"><a class="haber-titular" href="#n2a">El Ibex 35 cierra en máximos de 2008 empujado por la banca</a></h3>
+          </div>
+        </article>
+        <article class="haber-segunda">
+          <img class="haber-segunda__img" {{IMG:puerto|(min-width: 80em) 9rem, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <div class="haber-segunda__texto">
+            <p class="haber-rotulo">Exportaciones</p>
+            <h3 class="haber-segunda__titulo"><a class="haber-titular" href="#n2b">Las exportaciones crecen un 4,1 % pese a los nuevos aranceles</a></h3>
+          </div>
+        </article>
+        <section class="haber-ultimo" aria-labelledby="ultimo-titulo">
+          <h2 class="syx-sr-only" id="ultimo-titulo">Lo último y lo más leído</h2>
+          <div class="mol-tabs haber-pestanas haber-pestanas--listas">
+            <div class="mol-tabs__list" role="tablist" aria-label="Listas de noticias">
+              <button class="mol-tabs__tab" type="button" role="tab" id="tab-ultimo" aria-selected="true" aria-controls="panel-ultimo">Lo último</button>
+              <button class="mol-tabs__tab" type="button" role="tab" id="tab-leido" aria-selected="false" aria-controls="panel-leido" tabindex="-1">Lo más leído</button>
+            </div>
+            <div class="mol-tabs__panel" role="tabpanel" id="panel-ultimo" aria-labelledby="tab-ultimo" tabindex="0"><div class="haber-panel">
+            <ol class="haber-ultimo__lista">
+            <li><time class="haber-ultimo__hora" datetime="2026-11-09T18:42">18:42</time><a class="haber-ultimo__enlace" href="#u1">El euríbor diario cae por debajo del 2,3 %</a></li>
+            <li><time class="haber-ultimo__hora" datetime="2026-11-09T18:15">18:15</time><a class="haber-ultimo__enlace" href="#u2">Bruselas mantiene su previsión de crecimiento para España</a></li>
+            <li><time class="haber-ultimo__hora" datetime="2026-11-09T17:58">17:58</time><a class="haber-ultimo__enlace" href="#u3">La CNMV autoriza la opa sobre la eléctrica del norte</a></li>
+            <li><time class="haber-ultimo__hora" datetime="2026-11-09T17:30">17:30</time><a class="haber-ultimo__enlace" href="#u4">El paro registrado baja en 12.400 personas en octubre</a></li>
+          </ol>
+            </div></div>
+            <div class="mol-tabs__panel" role="tabpanel" id="panel-leido" aria-labelledby="tab-leido" tabindex="0" hidden><div class="haber-panel haber-leido">
+            <ol class="haber-leido__lista">
+            <li><a class="haber-leido__enlace" href="#l1">Cuánto pagará de IRPF si cobra la paga extra en diciembre</a></li>
+            <li><a class="haber-leido__enlace" href="#l2">El Tesoro coloca 5.000 millones en letras y la banca sube un 2,5 %</a></li>
+            <li><a class="haber-leido__enlace" href="#l3">Las cinco cotizadas que más dividendo pagarán en 2027</a></li>
+            <li><a class="haber-leido__enlace" href="#l4">El euríbor diario cae por debajo del 2,3 %</a></li>
+            <li><a class="haber-leido__enlace" href="#l5">Ocho bancos piden un calendario más gradual para el nuevo capital</a></li>
+          </ol>
+            </div></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ── 6 · MERCADOS: banda densa de datos ── -->
+    <section class="haber-banda haber-mercados" id="mercados" aria-labelledby="mercados-titulo">
+      <div class="layout-grid">
+        <div class="layout-grid__col-xs-12 haber-seccion__cabeza">
+          <h2 class="haber-seccion__titulo" id="mercados-titulo">Mercados</h2>
+          <a class="haber-mas" href="#mercados">Cotizaciones y calendario</a>
+        </div>
+        <figure class="layout-grid__col-xs-12 layout-grid__col-lg-8 haber-graf-bloque">
+          <div class="mol-tabs haber-pestanas">
+            <div class="mol-tabs__list" role="tablist" aria-label="Serie del gráfico">
+              <button class="mol-tabs__tab" type="button" role="tab" id="tab-bono" aria-selected="true" aria-controls="panel-bono">Bono a 10 años</button>
+              <button class="mol-tabs__tab" type="button" role="tab" id="tab-ibex" aria-selected="false" aria-controls="panel-ibex" tabindex="-1">Ibex 35</button>
+              <button class="mol-tabs__tab" type="button" role="tab" id="tab-eurusd" aria-selected="false" aria-controls="panel-eurusd" tabindex="-1">Euro/dólar</button>
+            </div>
+            <div class="mol-tabs__panel" role="tabpanel" id="panel-bono" aria-labelledby="tab-bono" tabindex="0"><div class="haber-panel"><p class="haber-graf__titulo">Rentabilidad del bono español a 10 años, en porcentaje. Último año, datos semanales.</p>
+              {{GRAF:bono}}{{TABLA:bono}}</div>
+            </div>
+            <div class="mol-tabs__panel" role="tabpanel" id="panel-ibex" aria-labelledby="tab-ibex" tabindex="0" hidden><div class="haber-panel"><p class="haber-graf__titulo">Ibex 35, en puntos. Último año, datos semanales.</p>
+              {{GRAF:ibex}}{{TABLA:ibex}}</div>
+            </div>
+            <div class="mol-tabs__panel" role="tabpanel" id="panel-eurusd" aria-labelledby="tab-eurusd" tabindex="0" hidden><div class="haber-panel"><p class="haber-graf__titulo">Euro/dólar, dólares por euro. Último año, datos semanales.</p>
+              {{GRAF:eurusd}}{{TABLA:eurusd}}</div>
+            </div>
+          </div>
+          <figcaption class="haber-graf__fuente">Fuente: elaboración de Rédito con datos ficticios.</figcaption>
+        </figure>
+        <div class="layout-grid__col-xs-12 layout-grid__col-lg-4 haber-datos-lateral" id="datos">
+          <figure class="haber-graf-bloque">
+            <p class="haber-rotulo">Subastas de letras</p>
+            <p class="haber-graf__titulo">Demanda en las cuatro subastas de noviembre, en millones de euros.</p>
+            {{GRAF:subastas}}
+            <figcaption class="haber-graf__fuente">La cuarta, la de hoy: 10.500 millones para 5.000 emitidos.</figcaption>
+          </figure>
+          <div class="atom-table__container">
+            <table class="atom-table haber-tabla">
+              <caption class="haber-tabla__pie">Última subasta de cada plazo. Demanda en millones de euros.</caption>
+              <thead><tr><th class="atom-table__th" scope="col">Plazo</th><th class="atom-table__th haber-tabla__num" scope="col">Tipo</th><th class="atom-table__th haber-tabla__num" scope="col">Demanda</th></tr></thead>
+              <tbody>
+                <tr><th class="atom-table__td" scope="row">3 meses</th><td class="atom-table__td haber-tabla__num">2,05 %</td><td class="atom-table__td haber-tabla__num">1.250</td></tr>
+                <tr><th class="atom-table__td" scope="row">6 meses</th><td class="atom-table__td haber-tabla__num">2,09 %</td><td class="atom-table__td haber-tabla__num">2.480</td></tr>
+                <tr><th class="atom-table__td" scope="row">9 meses</th><td class="atom-table__td haber-tabla__num">2,12 %</td><td class="atom-table__td haber-tabla__num">3.310</td></tr>
+                <tr><th class="atom-table__td" scope="row">12 meses</th><td class="atom-table__td haber-tabla__num">2,15 %</td><td class="atom-table__td haber-tabla__num">10.500</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 7 · DESARROLLO: Economía + lateral (publicidad 1 de 3 y lo más leído) ── -->
+    <section class="layout-grid haber-zona" id="economia" aria-labelledby="economia-titulo">
+      <div class="layout-grid__col-xs-12 haber-seccion__cabeza">
+        <h2 class="haber-seccion__titulo" id="economia-titulo">Economía</h2>
+        <a class="haber-mas" href="#economia">Toda la sección</a>
+      </div>
+      <div class="layout-grid__col-xs-12 layout-grid__col-lg-8 haber-tarjetas">
+        <article class="haber-tarjeta">
+          <img class="haber-tarjeta__img" {{IMG:vivienda|(min-width: 80em) 24rem, (min-width: 48em) 45vw, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <p class="haber-rotulo">Vivienda</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#e1">El precio del alquiler sube un 9 % y ya absorbe el 38 % del salario medio</a></h3>
+          <p class="haber-tarjeta__texto">Madrid y Barcelona encabezan la subida; el Gobierno estudia ampliar las zonas tensionadas. <span class="haber-lectura">3 min</span></p>
+        </article>
+        <article class="haber-tarjeta">
+          <img class="haber-tarjeta__img" {{IMG:industria|(min-width: 80em) 24rem, (min-width: 48em) 45vw, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <p class="haber-rotulo">Coyuntura</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#e2">La producción industrial encadena tres meses de subidas</a></h3>
+          <p class="haber-tarjeta__texto">El índice crece un 1,8 % interanual, impulsado por los bienes de equipo. <span class="haber-lectura">2 min</span></p>
+        </article>
+        <article class="haber-tarjeta">
+          <img class="haber-tarjeta__img" {{IMG:energia|(min-width: 80em) 24rem, (min-width: 48em) 45vw, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <p class="haber-rotulo">Energía</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#e3">Las renovables cubren por primera vez el 60 % de la demanda anual</a></h3>
+          <p class="haber-tarjeta__texto">La eólica marca récord en octubre y abarata el precio mayorista de la luz. <span class="haber-lectura">3 min</span></p>
+        </article>
+        <article class="haber-tarjeta">
+          <img class="haber-tarjeta__img" {{IMG:puerto|(min-width: 80em) 24rem, (min-width: 48em) 45vw, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <p class="haber-rotulo">Fiscalidad</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#e4">Hacienda recauda un 7 % más hasta septiembre por el tirón del IVA</a></h3>
+          <p class="haber-tarjeta__texto">El déficit se sitúa en el 2,9 % del PIB, por debajo del objetivo europeo. <span class="haber-lectura">2 min</span></p>
+        </article>
+      </div>
+      <div class="layout-grid__col-xs-12 layout-grid__col-lg-4 haber-lateral">
+        <!-- publicidad 1 de 3 · carril: el robapáginas se pega dentro de su columna mientras se lee la zona (≥ 80em, cuando SYX pone el lateral al lado) -->
+        <div class="haber-pub-carril" data-pub-carril>
+          <div class="haber-anuncio haber-anuncio--robapaginas" role="complementary" aria-label="Publicidad"
+               data-pub="robapaginas" data-pub-id="rdt-portada-lat-1" data-pub-formato="300x250"
+               data-pub-zona="desarrollo" data-pub-posicion="1"
+               data-pub-sticky="carril" data-pub-sticky-desde="xl" data-pub-estado="reservado">
+            <p class="haber-anuncio__etiqueta">Publicidad</p>
+            <div class="haber-anuncio__hueco" data-formato="300 × 250"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- publicidad 2 de 3: entre desarrollo y profundidad (970×90 · 728×90 · 320×50) -->
+    <div class="haber-anuncio haber-anuncio--faldon" role="complementary" aria-label="Publicidad"
+         data-pub="faldon" data-pub-id="rdt-portada-fal-1" data-pub-formato="320x50 md:728x90 lg:970x90"
+         data-pub-zona="entre-desarrollo-y-profundidad" data-pub-posicion="2"
+         data-pub-sticky="no" data-pub-estado="reservado">
+      <p class="haber-anuncio__etiqueta">Publicidad</p>
+      <div class="haber-anuncio__hueco"></div>
+    </div>
+
+    <!-- ── 8 · RESPIRO: Opinión ── -->
+    <section class="layout-grid haber-tribuna" id="opinion" aria-labelledby="opinion-titulo">
+      <figure class="layout-grid__col-xs-12 layout-grid__col-lg-8 haber-tribuna__cuerpo">
+        <h2 class="haber-rotulo" id="opinion-titulo">Opinión · Tribuna</h2>
+        <blockquote class="haber-tribuna__cita">
+          <p>«El presupuesto no puede esperar. Ocho meses sin cuentas son un lastre que pagan, sobre todo, las empresas que necesitan certidumbre para invertir.»</p>
+        </blockquote>
+        <figcaption class="haber-firma"><span class="haber-firma__autor">Ernesto Ibarra</span> <span class="haber-firma__mesa">Economista</span></figcaption>
+      </figure>
+      <ul class="layout-grid__col-xs-12 haber-columnas" aria-label="Columnistas">
+        <li class="haber-columna"><span class="atom-avatar atom-avatar--lg" role="img" aria-label="Carmen Vidal">CV</span><div><p class="haber-columna__autor">Carmen Vidal</p><a class="haber-titular haber-columna__titulo" href="#c1">La inflación que no sale en el IPC</a></div></li>
+        <li class="haber-columna"><span class="atom-avatar atom-avatar--lg" role="img" aria-label="Jorge Salas">JS</span><div><p class="haber-columna__autor">Jorge Salas</p><a class="haber-titular haber-columna__titulo" href="#c2">Por qué el BCE no debe tener prisa</a></div></li>
+        <li class="haber-columna"><span class="atom-avatar atom-avatar--lg" role="img" aria-label="Lucía Ferrer">LF</span><div><p class="haber-columna__autor">Lucía Ferrer</p><a class="haber-titular haber-columna__titulo" href="#c3">El ahorro que paraliza la inversión</a></div></li>
+      </ul>
+    </section>
+
+    <!-- ── 9 · PROFUNDIDAD: Empresas (gráfico divergente) y Tecnología (con contenido patrocinado, publicidad 3 de 3) ── -->
+    <section class="layout-grid haber-zona" id="empresas" aria-labelledby="empresas-titulo">
+      <div class="layout-grid__col-xs-12 haber-seccion__cabeza">
+        <h2 class="haber-seccion__titulo" id="empresas-titulo">Empresas</h2>
+        <a class="haber-mas" href="#empresas">Toda la sección</a>
+      </div>
+      <figure class="layout-grid__col-xs-12 layout-grid__col-md-6 layout-grid__col-lg-5 haber-graf-bloque">
+        <p class="haber-rotulo">La semana en bolsa</p>
+        <p class="haber-graf__titulo">Variación semanal por sector del Ibex 35, en porcentaje.</p>
+        {{GRAF:sectores}}{{TABLA:sectores}}
+        <figcaption class="haber-graf__fuente">Fuente: elaboración de Rédito con datos ficticios.</figcaption>
+      </figure>
+      <div class="layout-grid__col-xs-12 layout-grid__col-md-6 layout-grid__col-lg-7 haber-lista-noticias">
+        <article class="haber-noticia">
+          <p class="haber-rotulo">Banca</p>
+          <h3 class="haber-noticia__titulo"><a class="haber-titular" href="#m1">Ocho bancos piden al Gobierno un calendario más gradual para el nuevo capital</a></h3>
+          <p class="haber-noticia__texto">La norma europea elevará en 2027 el colchón que deben retener las entidades. <span class="haber-lectura">4 min</span></p>
+        </article>
+        <article class="haber-noticia">
+          <p class="haber-rotulo">Energía</p>
+          <h3 class="haber-noticia__titulo"><a class="haber-titular" href="#m2">La eléctrica del norte acepta la opa tras mejorar la oferta un 6 %</a></h3>
+          <p class="haber-noticia__texto">El consejo recomienda a los accionistas acudir a la oferta de 14,20 euros por título. <span class="haber-lectura">3 min</span></p>
+        </article>
+        <article class="haber-noticia">
+          <p class="haber-rotulo">Industria</p>
+          <h3 class="haber-noticia__titulo"><a class="haber-titular" href="#m3">Ocho de cada diez industriales prevén subir precios en el primer trimestre</a></h3>
+          <p class="haber-noticia__texto">Así lo recoge una encuesta a 1.500 empresas manufactureras. <span class="haber-lectura">2 min</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="layout-grid haber-zona haber-zona--tecnologia" id="tecnologia" aria-labelledby="tecnologia-titulo">
+      <div class="layout-grid__col-xs-12 haber-seccion__cabeza">
+        <h2 class="haber-seccion__titulo" id="tecnologia-titulo">Tecnología</h2>
+        <a class="haber-mas" href="#tecnologia">Toda la sección</a>
+      </div>
+      <div class="layout-grid__col-xs-12 haber-tarjetas haber-tarjetas--tres">
+        <article class="haber-tarjeta">
+          <img class="haber-tarjeta__img" {{IMG:tecnologia|(min-width: 80em) 24rem, (min-width: 48em) 30vw, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <p class="haber-rotulo">Infraestructura</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#t1">Los centros de datos disparan la demanda eléctrica del norte</a></h3>
+          <p class="haber-tarjeta__texto">Las solicitudes de conexión triplican la potencia disponible en la red. <span class="haber-lectura">3 min</span></p>
+        </article>
+        <article class="haber-tarjeta">
+          <img class="haber-tarjeta__img" {{IMG:bolsa|(min-width: 80em) 24rem, (min-width: 48em) 30vw, 7rem}} alt="" width="480" height="320" loading="lazy" decoding="async">
+          <p class="haber-rotulo">Fintech</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#t2">El pago con el móvil supera al efectivo en los comercios urbanos</a></h3>
+          <p class="haber-tarjeta__texto">Seis de cada diez compras de menos de 20 euros ya son digitales. <span class="haber-lectura">4 min</span></p>
+        </article>
+        <article class="haber-tarjeta haber-tarjeta--patrocinada"
+                 data-pub="patrocinado" data-pub-id="rdt-portada-pat-1" data-pub-formato="nativo-n3"
+                 data-pub-zona="profundidad" data-pub-posicion="3" data-pub-anunciante="Fundación Altamar"
+                 data-pub-sticky="no" data-pub-estado="reservado">
+          <div class="haber-tarjeta__img haber-tarjeta__img--patrocinada" aria-hidden="true"></div>
+          <p class="haber-rotulo haber-rotulo--publicidad">Publicidad</p>
+          <h3 class="haber-tarjeta__titulo"><a class="haber-titular" href="#p1" rel="sponsored">Cinco claves para entender la financiación de la transición energética</a></h3>
+          <p class="haber-tarjeta__texto">Contenido ofrecido por Fundación Altamar. Su informe repasa los instrumentos que usarán las empresas medianas. <span class="haber-lectura">3 min</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── 10 · boletines ── -->
+    <section class="haber-boletines" id="boletines" aria-labelledby="boletines-titulo">
+      <div class="layout-grid">
+        <div class="layout-grid__col-xs-12 layout-grid__col-lg-5 haber-boletines__texto">
+          <h2 class="haber-seccion__titulo" id="boletines-titulo">Boletines</h2>
+          <p>La apertura de los mercados a las 8:00 y el cierre a las 18:30, en su correo. Gratis, sin anuncios.</p>
+        </div>
+        <form class="layout-grid__col-xs-12 layout-grid__col-lg-7 haber-boletines__form" action="#boletines">
+          <fieldset class="haber-boletines__opciones">
+            <legend class="haber-rotulo">Elija sus boletines</legend>
+            <label class="atom-check"><input class="atom-check__input" type="checkbox" name="b" value="apertura" checked><span class="atom-check__label"><span class="haber-optico">La apertura, cada mañana</span></span></label>
+            <label class="atom-check"><input class="atom-check__input" type="checkbox" name="b" value="cierre"><span class="atom-check__label"><span class="haber-optico">El cierre, cada tarde</span></span></label>
+            <label class="atom-check"><input class="atom-check__input" type="checkbox" name="b" value="semanal"><span class="atom-check__label"><span class="haber-optico">Finanzas personales, los sábados</span></span></label>
+          </fieldset>
+          <div class="mol-form-field haber-boletines__campo">
+            <label class="atom-label" for="boletin-correo">Correo electrónico</label>
+            <input class="atom-input" id="boletin-correo" type="email" name="correo" autocomplete="email" required>
+          </div>
+          <button class="atom-btn atom-btn--primary atom-btn--filled haber-boletines__boton" type="submit">Suscribirme</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="haber-pie">
+    <div class="layout-grid">
+      <div class="layout-grid__col-xs-12 haber-pie__cabeza">
+        <p class="haber-pie__marca">Rédito</p>
+        <p class="haber-pie__lema">Diario de mercados</p>
+      </div>
+      {{PIE}}
+      <p class="layout-grid__col-xs-12 haber-nota">© 2026 Rédito. Diario ficticio: prueba de diseño sobre el sistema SYX. Texto en Newsreader (Production Type, licencia SIL Open Font License); cifras en Hito v0.5. Las imágenes son ilustraciones generadas por código y los datos, ficticios.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/syx-site-nav.js"></script>
+  <script type="module" src="js/syx-tabs.js"></script>
+  <script src="js/haber.js" defer></script>
+  <script src="js/redito-pub.js" defer></script>
+</body>
+</html>

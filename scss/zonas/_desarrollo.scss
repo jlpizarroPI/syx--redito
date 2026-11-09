@@ -1,0 +1,160 @@
+// Zona 7 · desarrollo: tarjetas con imagen y lateral.
+@use "../abstracts" as *;
+/* syx-reuse-file: coloca tarjetas y lateral en layout-grid de SYX; .haber-rotulo nace en base/_base (atom-pill, atom-txt consultados) */
+
+/* ═════ 7 · desarrollo: tarjetas con imagen y lateral ═════ */
+/* syx-reuse: checked mol-card, mol-feature-card (marco y relleno) — tarjeta de prensa sin caja.
+   Móvil: fila compacta (titular + miniatura). Desde 48em: imagen arriba y filas alineadas con subgrid */
+.haber-tarjetas {
+  display: grid;
+  gap: var(--haber-v4) var(--haber-gutter);
+  align-content: start;
+}
+/* syx-reuse: checked mol-card — tarjeta sin caja: fila compacta en móvil, subgrid desde 48em */
+.haber-tarjeta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7rem;
+  grid-template-areas: "rot img" "tit img" "txt img";
+  grid-template-rows: auto auto 1fr;
+  gap: var(--haber-v2) var(--haber-padding);
+  align-content: start;
+  padding-block-start: var(--haber-v3);
+  border-block-start: var(--haber-fino) solid var(--haber-filete);
+}
+/* syx-reuse: checked atom-pill, atom-txt — el rótulo ya nace en base/_base; aquí solo se coloca */
+.haber-tarjeta > .haber-rotulo { grid-area: rot; }
+.haber-tarjeta__titulo { grid-area: tit; }
+.haber-tarjeta__texto { grid-area: txt; }
+.haber-tarjeta__img {
+  grid-area: img;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--haber-papel-2);
+}
+@include desde(md) {
+  .haber-tarjetas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto auto auto auto;
+  }
+  .haber-tarjeta {
+    grid-row: span 4;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: subgrid;
+    grid-template-areas: "img" "rot" "tit" "txt";
+    row-gap: var(--haber-v3);
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+  .haber-tarjeta__img {
+    aspect-ratio: 3 / 2;
+  }
+  .haber-tarjeta__titulo {
+    font-size: var(--haber-pieza-tam);
+  }
+}
+@include entre(md, xl) {
+  /* tres tarjetas en dos columnas: la tercera ocupa la fila entera en horizontal */
+  .haber-tarjetas--tres > .haber-tarjeta:last-child {
+    grid-column: 1 / -1;
+    grid-row: span 1;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "img rot" "img tit" "img txt";
+    column-gap: var(--haber-gutter);
+  }
+}
+@include desde(xl) {
+  .haber-tarjetas--tres {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.haber-tarjeta__titulo {
+  font-size: var(--haber-paso1-tam);  /* fila compacta en móvil: un paso menos */
+  line-height: var(--haber-pieza-lh);
+  font-weight: var(--haber-peso-medio);
+  letter-spacing: var(--haber-track-pieza);
+  margin-inline-start: var(--haber-optico-pieza);
+  text-wrap: balance;
+}
+.haber-tarjeta__texto,
+.haber-noticia__texto {
+  max-inline-size: 30em;              /* ≤ 75 caracteres a 15–16 px (char ≈ 0,4 em) */
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+  text-wrap: pretty;
+}
+/* contenido patrocinado: mismo molde que una N3, rotulado «Publicidad», sobre papel 2 */
+.haber-tarjeta--patrocinada {
+  background: var(--haber-papel-2);
+  padding: var(--haber-padding);
+  border: 0;
+}
+.haber-tarjeta__img--patrocinada {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 0.5rem, color-mix(in oklch, var(--haber-tinta-2) 12%, transparent) 0.5rem calc(0.5rem + 1px)),
+    var(--haber-papel);
+}
+.haber-lateral {
+  display: grid;
+  gap: var(--haber-v8);
+  align-content: start;
+}
+/* móvil: el robapáginas sube al principio de la zona, tras su cabecera (solo orden visual). Al final
+   quedaría contiguo al faldón (06.3 §7) y entre dos noticias está prohibido (06.3 §5) */
+.haber-zona:has(> .haber-lateral) {
+  > .haber-seccion__cabeza { order: -2; }
+  > .haber-lateral { order: -1; }
+}
+/* desde 80em (cuando layout-grid de SYX pone las col-lg lado a lado; en nuestro mapa es «xl») el lateral
+   ocupa todo el alto de la zona: ese es el recorrido del robapáginas pegado */
+@include desde(xl) {
+  .haber-zona:has(> .haber-lateral) > .haber-lateral {
+    order: 0;
+    align-self: stretch;
+    grid-template-rows: minmax(0, 1fr);
+    align-content: stretch;
+  }
+}
+/* syx-reuse: checked atom-list--primary (marcador propio) — ranking con el número en las cifras de Hito */
+/* en la pestaña «Lo más leído» de la apertura: sin el filete de cabecera, que ya pone la pestaña */
+.haber-pestanas--listas .haber-leido {
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+.haber-leido {
+  display: grid;
+  gap: var(--haber-v3);
+  padding-block-start: var(--haber-v3);
+  border-block-start: var(--haber-fino) solid var(--haber-filete-fuerte);
+}
+.haber-leido__lista {
+  counter-reset: leido;
+}
+.haber-leido__lista > li {
+  counter-increment: leido;
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: var(--haber-inner);
+  align-items: baseline;
+  padding-block: var(--haber-v2);
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-leido__lista > li::before {
+  content: counter(leido);
+  font-family: var(--haber-cifras);
+  font-size: var(--haber-pieza-tam);
+  line-height: 1;
+  color: var(--haber-laton-texto);
+}
+.haber-leido__enlace {
+  display: inline-block;
+  min-block-size: 1.5rem;             /* objetivo de 24 px (WCAG 2.5.8) */
+  font-weight: var(--haber-peso-medio);
+  color: var(--haber-tinta);
+  text-decoration: none;
+}
+.haber-leido__enlace:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--haber-laton);
+}

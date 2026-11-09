@@ -1,0 +1,48 @@
+// Cabecera de marca (≥ 64em).
+@use "../abstracts" as *;
+
+/* ═════ 1 · cabecera de marca (≥ 64em) ═════ */
+/* syx-reuse: checked org-site-header__brand — la cabecera de un diario es una pieza tipográfica propia */
+.haber-marca {
+  display: none;
+}
+@include desde(lg) {
+  .haber-marca {
+    display: block;
+    padding-block: var(--haber-v6) var(--haber-v4);
+  }
+  .haber-marca > .layout-grid {
+    align-items: end;
+  }
+}
+.haber-marca__fecha,
+.haber-marca__lema {
+  display: grid;
+  gap: var(--haber-v1);
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+}
+.haber-marca__lema {
+  font-style: italic;
+  text-align: end;
+}
+.haber-marca__edicion,
+.haber-marca__desde {
+  font-style: normal;
+  font-size: var(--haber-menor-tam);
+  font-weight: var(--haber-peso-rotulo);
+  text-transform: uppercase;
+  letter-spacing: var(--haber-track-rotulo);
+}
+.haber-marca__nombre {
+  font-size: var(--haber-marca-tam);
+  line-height: var(--haber-marca-lh);
+  font-weight: var(--haber-peso-marca);
+  letter-spacing: var(--haber-track-marca);
+  text-align: center;
+}
+.haber-marca__enlace {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}

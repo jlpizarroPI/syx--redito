@@ -1,0 +1,110 @@
+// Publicidad (atlas 06.3): bloque del grid, rotulado, con hueco reservado.
+@use "../abstracts" as *;
+@use "syx-design-system/scss/abstracts/mixins/mixins" as syx;
+
+/* ═════ publicidad (atlas 06.3): bloque del grid, nombrado, con su hueco reservado ═════ */
+/* syx-reuse: checked mol-card, atom-skeleton — el hueco publicitario es un bloque del grid con
+   aspect-ratio (sin saltos al cargar la creatividad, CLS 0); sin position absoluta ni fija (CP-01) */
+.haber-anuncio {
+  display: grid;
+  justify-items: center;
+  gap: var(--haber-v1);
+}
+.haber-anuncio__etiqueta {
+  font-size: var(--haber-menor-tam);
+  font-weight: var(--haber-peso-medio);
+  text-transform: uppercase;
+  letter-spacing: var(--haber-track-rotulo);
+  color: var(--haber-tinta-2);
+  line-height: 1;
+}
+.haber-anuncio__hueco {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 0.5rem, color-mix(in oklch, var(--haber-tinta-2) 10%, transparent) 0.5rem calc(0.5rem + 1px)),
+    var(--haber-papel-2);
+  outline: var(--haber-fino) solid var(--haber-filete);
+  color: var(--haber-tinta-2);
+  font-family: var(--haber-cifras);
+  font-size: var(--haber-menor-tam);
+}
+.haber-anuncio__hueco::after {
+  content: attr(data-formato);
+}
+.haber-anuncio--robapaginas .haber-anuncio__hueco {
+  max-inline-size: 300px;              /* formato IAB 300 × 250: la creatividad tiene px fijos */
+  aspect-ratio: 300 / 250;
+}
+.haber-anuncio--faldon {
+  padding: var(--haber-v4) var(--layout-pad-1);
+  border-block: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-anuncio--faldon .haber-anuncio__hueco {
+  max-inline-size: 320px;
+  aspect-ratio: 320 / 50;
+}
+.haber-anuncio--faldon .haber-anuncio__hueco::after { content: "320 × 50"; }
+@include desde(md) {
+  .haber-anuncio--faldon .haber-anuncio__hueco { max-inline-size: 728px; aspect-ratio: 728 / 90; }
+  .haber-anuncio--faldon .haber-anuncio__hueco::after { content: "728 × 90"; }
+}
+@include desde(lg) {
+  .haber-anuncio--faldon .haber-anuncio__hueco { max-inline-size: 970px; aspect-ratio: 970 / 90; }
+  .haber-anuncio--faldon .haber-anuncio__hueco::after { content: "970 × 90"; }
+}
+
+/* ═════ sticky de carril (data-pub-sticky="carril") ═════
+   El bloque sigue siendo hijo del grid y conserva su hueco: el pegado (sticky) no lo saca del flujo (CP-01)
+   y solo se desplaza dentro de su carril, sin tapar contenido (06.3 §5: prohibido el sticky sobre el
+   contenido). Better Ads: un 300 × 250 en el lateral está muy por debajo del 30 % de la pantalla.
+   Se activa desde el punto de corte que diga data-pub-sticky-desde y solo si la ventana es lo bastante
+   alta para la barra, la etiqueta y la creatividad. En móvil no hay sticky (06.3 §14: reducir impacto). */
+/* syx-reuse: checked layout-grid (columna) — el carril es la celda del lateral que queda libre */
+.haber-pub-carril {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+}
+/* centinelas de redito-pub.js (alto cero): el de abajo marca el final real del carril */
+[data-pub-centinela] {
+  flex: none;
+  block-size: 0;
+}
+[data-pub-centinela="abajo"] {
+  margin-block-start: auto;
+}
+$pub-sticky-alto-minimo: 36rem;   // barra 3,75 + respiro + etiqueta + 250 px de creatividad, con margen
+@each $nombre, $valor in $puntos {
+  @include desde($nombre) {
+    @media (min-height: $pub-sticky-alto-minimo) {
+      [data-pub-sticky="carril"][data-pub-sticky-desde="#{$nombre}"] {
+        @include syx.sticky($top: calc(var(--haber-barra-alto) + var(--haber-v4)));
+      }
+    }
+  }
+}
+@media print {
+  [data-pub] { display: none; }
+}
+
+/* ═════ depuración: <html data-pub-depurar> o ?pub-depurar ═════ */
+/* syx-reuse: checked atom-badge — herramienta interna, no se publica en la interfaz del lector */
+[data-pub-depurar] [data-pub] {
+  outline: 2px dashed var(--semantic-color-state-focus);
+  outline-offset: 2px;
+}
+[data-pub-depurar] [data-pub]::before {
+  content: attr(data-pub-id) " · " attr(data-pub-estado);
+  display: block;
+  font-family: var(--haber-cifras);
+  font-size: var(--haber-menor-tam);
+  color: var(--semantic-color-state-focus);
+}
+[data-pub-depurar] [data-pub-sticky="carril"]::before {
+  content: attr(data-pub-id) " · " attr(data-pub-estado) " · pegado: " attr(data-pub-pegado);
+}
+[data-pub-depurar] [data-pub-estado="visible"] {
+  outline-style: solid;
+}

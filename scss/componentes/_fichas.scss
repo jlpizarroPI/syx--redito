@@ -1,0 +1,104 @@
+// Fichas de mercado: stat tile con sparkline (skill dataviz).
+@use "../abstracts" as *;
+
+/* ═════ 4 · fichas de mercado (skill dataviz: stat tile con sparkline) ═════ */
+/* syx-reuse: checked atom-stat-counter (una cifra grande y su palabra) — la ficha añade variación y tendencia */
+.haber-fichas {
+  padding-block: var(--haber-v4);
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-fichas > .layout-grid {
+  row-gap: var(--haber-v3);
+}
+.haber-fichas__cabeza,
+.haber-seccion__cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--haber-padding);
+}
+.haber-fichas__lista {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9.5rem, 1fr);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.haber-fichas__lista::-webkit-scrollbar {
+  display: none;
+}
+@include desde(md) {
+  .haber-fichas__lista {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: var(--haber-v4);
+    overflow: visible;
+  }
+}
+@include desde(xl) {
+  .haber-fichas__lista {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+/* syx-reuse: checked atom-stat-counter — la ficha suma variación con signo y sparkline */
+.haber-ficha {
+  scroll-snap-align: start;
+  border-inline-start: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-ficha__enlace {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: var(--haber-v2) var(--haber-inner);
+  padding-inline: var(--haber-padding);
+  color: inherit;
+  text-decoration: none;
+  font-family: var(--haber-cifras);
+  font-variant-numeric: tabular-nums;
+}
+.haber-ficha__nombre {
+  grid-column: 1 / -1;
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+  line-height: 1;
+  text-box: trim-both cap alphabetic;
+}
+.haber-ficha__valor {
+  font-size: var(--haber-paso1-tam);
+  line-height: 1;
+  font-variant-numeric: proportional-nums;  /* cifra suelta y grande: proporcional (skill dataviz) */
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic;
+}
+.haber-ficha__delta {
+  font-size: var(--haber-firma-tam);
+  font-weight: var(--haber-peso-dato);
+  line-height: 1;
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic;
+}
+.haber-ficha--sube .haber-ficha__delta { color: var(--haber-sube); }
+.haber-ficha--cae .haber-ficha__delta { color: var(--haber-cae); }
+.haber-ficha__linea {
+  grid-column: 1 / -1;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+.haber-ficha__linea polyline {
+  fill: none;
+  stroke: var(--haber-tinta-2);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.haber-ficha__punto {
+  stroke: var(--haber-papel);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.haber-ficha__punto--sube { fill: var(--haber-graf-sube); }
+.haber-ficha__punto--cae { fill: var(--haber-graf-cae); }

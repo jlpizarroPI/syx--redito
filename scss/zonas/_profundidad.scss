@@ -1,0 +1,28 @@
+// Zona 9 · profundidad: Empresas y Tecnología.
+/* syx-reuse-file: coloca Empresas y Tecnología en layout-grid de SYX; listas con atom-list consultado */
+/* ═════ 9 · profundidad ═════ */
+.haber-lista-noticias {
+  display: grid;
+  align-content: start;
+}
+/* syx-reuse: checked mol-card — noticia de lista: rótulo, titular y texto entre filetes */
+.haber-noticia {
+  display: grid;
+  gap: var(--haber-v3);
+  padding-block: var(--haber-v4);
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+}
+.haber-noticia:first-child {
+  padding-block-start: 0;
+}
+.haber-noticia__titulo {
+  font-size: var(--haber-pieza-tam);
+  line-height: var(--haber-pieza-lh);
+  font-weight: var(--haber-peso-medio);
+  letter-spacing: var(--haber-track-pieza);
+  margin-inline-start: var(--haber-optico-pieza);
+  text-wrap: balance;
+}
+.haber-zona--tecnologia {
+  padding-block-start: 0;
+}

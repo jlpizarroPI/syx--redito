@@ -1,0 +1,71 @@
+// Zona 8 · opinión: bloque de respiro.
+@use "../abstracts" as *;
+
+/* ═════ 8 · opinión: bloque de respiro ═════ */
+/* syx-reuse: checked mol-card, atom-txt — cita en la cursiva de Newsreader, sin caja */
+.haber-tribuna {
+  --component-blockquote-border-width: 0;
+  --component-blockquote-bg: transparent;
+  --component-blockquote-color: var(--haber-tinta);
+  --component-blockquote-border-radius: 0;
+  padding-block: var(--haber-vacio) var(--haber-seccion);
+  row-gap: var(--haber-v8);
+}
+.haber-tribuna__cuerpo {
+  display: grid;
+  gap: var(--haber-v6);
+}
+@include desde(xl) {
+  .haber-tribuna__cuerpo {
+    grid-column-start: 3;             /* desplazamiento de dos columnas (O3) */
+  }
+}
+.haber-tribuna__cita {
+  font-size: var(--haber-cita-tam);
+  line-height: var(--haber-cita-lh);
+  font-style: italic;
+  font-weight: var(--haber-peso-cita);
+  letter-spacing: var(--haber-track-cita);
+  padding: 0;
+  margin-inline-start: var(--haber-optico-cita);
+  text-wrap: balance;
+}
+.haber-tribuna__cita > p {
+  text-indent: -0.432em;              /* «» colgada: 0,432 em de avance (cursiva 350, opsz 60) */
+}
+/* syx-reuse: checked atom-avatar (se usa tal cual, con iniciales) — fila de columnistas */
+.haber-columnas {
+  display: grid;
+  gap: var(--haber-v4) var(--haber-gutter);
+  padding-block-start: var(--haber-v4);
+  border-block-start: var(--haber-fino) solid var(--haber-filete);
+}
+@include desde(md) {
+  .haber-columnas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+/* syx-reuse: checked atom-avatar (se usa tal cual) — columnista: iniciales, autor y título */
+.haber-columna {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--haber-padding);
+  align-items: center;
+}
+.haber-columna__autor {
+  font-size: var(--haber-menor-tam);
+  font-weight: var(--haber-peso-rotulo);
+  text-transform: uppercase;
+  letter-spacing: var(--haber-track-rotulo);
+  color: var(--haber-tinta-2);
+}
+.haber-columna__titulo {
+  font-size: var(--haber-paso1-tam);
+  line-height: var(--haber-paso1-lh);
+  font-style: italic;
+}
+.haber-columnas {
+  --component-avatar-bg: var(--haber-papel-2);
+  --component-avatar-color: var(--haber-laton-texto);
+  --component-avatar-font-weight: var(--haber-peso-medio);
+}

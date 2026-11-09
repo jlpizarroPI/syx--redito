@@ -1,0 +1,172 @@
+// Gráficos SVG (skill dataviz): --k = unidades del viewBox por px.
+@use "syx-design-system/scss/abstracts/mixins/mixins" as syx;
+/* ── gráficos SVG (skill dataviz). --k = unidades del viewBox por px (haber.js) ── */
+/* syx-reuse: checked atom-progress, atom-stat-counter (SYX no trae gráficos) — SVG propio con la skill dataviz */
+.haber-graf {
+  --k: 1;
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+  font-family: var(--haber-cifras);
+  font-size: calc(13px * var(--k));
+  font-variant-numeric: tabular-nums;
+}
+.haber-graf:focus-visible {
+  outline: var(--semantic-focus-ring-width) solid var(--haber-laton-texto);
+  outline-offset: 4px;
+}
+.haber-graf__rejilla {
+  stroke: var(--haber-graf-rejilla);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
+}
+.haber-graf__base {
+  stroke: var(--haber-filete-fuerte);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
+}
+.haber-graf__eje {
+  fill: var(--haber-tinta-2);
+}
+.haber-graf__area {
+  fill: var(--haber-graf-enfasis);
+  fill-opacity: 0.1;
+}
+.haber-graf__trazo {
+  fill: none;
+  stroke: var(--haber-graf-enfasis);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.haber-graf__marca,
+.haber-graf__cruz-punto {
+  r: calc(4.5px * var(--k));
+  fill: var(--haber-graf-enfasis);
+  stroke: var(--haber-papel);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.haber-banda .haber-graf__marca,
+.haber-banda .haber-graf__cruz-punto {
+  stroke: var(--haber-papel-2);
+}
+.haber-graf__marca--ext {
+  fill: var(--haber-tinta-2);
+}
+.haber-graf__nota {
+  fill: var(--haber-tinta-2);
+  font-family: var(--semantic-font-family-primary);
+  font-style: italic;
+}
+.haber-graf__cruz {
+  visibility: hidden;
+  pointer-events: none;
+}
+.haber-graf.is-leyendo .haber-graf__cruz {
+  visibility: visible;
+}
+.haber-graf__cruz-linea {
+  stroke: var(--haber-tinta-2);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.haber-graf__burbuja rect {
+  fill: var(--haber-tinta);
+}
+.haber-graf__burbuja-valor {
+  fill: var(--haber-papel);
+  font-weight: var(--haber-peso-rotulo);
+  font-size: calc(14px * var(--k));
+}
+.haber-graf__burbuja-fecha {
+  fill: color-mix(in oklch, var(--haber-papel) 75%, transparent);
+  font-family: var(--semantic-font-family-primary);
+  font-size: calc(12px * var(--k));
+}
+.haber-graf__pieza {
+  outline: none;
+}
+.haber-graf__blanco {
+  fill: transparent;
+}
+.haber-graf__col {
+  fill: var(--haber-graf-contexto);
+}
+.haber-graf__col--enfasis {
+  fill: var(--haber-graf-enfasis);
+}
+.haber-graf__barra--sube { fill: var(--haber-graf-sube); }
+.haber-graf__barra--cae { fill: var(--haber-graf-cae); }
+.haber-graf__valor {
+  fill: var(--haber-tinta);
+  font-weight: var(--haber-peso-dato);
+}
+.haber-graf__nombre {
+  fill: var(--haber-tinta-2);
+  font-family: var(--semantic-font-family-primary);
+}
+/* la marca responde al puntero y al foco (skill dataviz: la marca es la diana) */
+.haber-graf__pieza :is(.haber-graf__col, .haber-graf__barra) {
+  @include syx.transition(opacity var(--haber-duracion) var(--haber-curva));
+}
+.haber-graf--columnas:has(.haber-graf__pieza:is(:hover, :focus-visible)) .haber-graf__pieza:not(:hover, :focus-visible) :is(.haber-graf__col, .haber-graf__barra),
+.haber-graf--divergente:has(.haber-graf__pieza:is(:hover, :focus-visible)) .haber-graf__pieza:not(:hover, :focus-visible) :is(.haber-graf__col, .haber-graf__barra) {
+  opacity: 0.45;
+}
+.haber-graf__pieza:focus-visible .haber-graf__blanco {
+  stroke: var(--haber-laton-texto);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+/* syx-reuse: checked atom-table (se usa tal cual) — tokens escritos en el contenedor */
+.haber-pagina {
+  --component-form-field-font-family: var(--semantic-font-family-primary);
+  --component-button-font-family: var(--semantic-font-family-primary);
+  --component-table-min-width: 0;
+  --component-table-th-font-family: var(--semantic-font-family-heading);
+  --component-table-bg-th: transparent;
+  --component-table-base-th-bg: transparent;
+  --component-table-cell-padding-x: 0;
+  --component-table-cell-padding-y: var(--haber-v2);
+}
+/* syx-reuse: checked atom-table (se usa tal cual) — cifras tabulares, filetes y números a la derecha */
+.haber-tabla {
+  inline-size: 100%;
+  font-variant-numeric: tabular-nums;
+  border-block-start: var(--haber-fino) solid var(--haber-filete-fuerte);
+}
+.haber-tabla :where(th, td) {
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+  background: transparent;
+}
+.haber-tabla thead th {
+  font-size: var(--haber-menor-tam);
+  font-weight: var(--haber-peso-rotulo);
+  text-transform: uppercase;
+  letter-spacing: var(--haber-track-rotulo);
+  color: var(--haber-tinta-2);
+}
+.haber-tabla tbody th {
+  font-weight: var(--haber-peso-texto);
+}
+.haber-tabla__pie {
+  caption-side: bottom;
+  padding: var(--haber-v3) 0 0;
+  font-size: var(--haber-firma-tam);
+  font-style: italic;
+  color: var(--haber-tinta-2);
+  text-align: start;
+}
+.haber-tabla__num {
+  text-align: end;
+}
+.haber-tabla td.haber-tabla__num {
+  font-family: var(--haber-cifras);
+  font-weight: var(--haber-peso-dato);
+}

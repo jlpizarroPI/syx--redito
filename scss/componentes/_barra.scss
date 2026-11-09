@@ -1,0 +1,281 @@
+// Barra fija: org-site-header de SYX, cajón, megamenús y búsqueda.
+@use "syx-design-system/scss/abstracts/mixins/mixins" as syx;
+@use "../abstracts" as *;
+
+/* ═════ 2 · barra fija: org-site-header de SYX con sus piezas ═════ */
+/* syx-reuse: checked org-site-header (se usa tal cual) — el diario mantiene la hamburguesa en
+   todos los anchos (el cajón es el índice completo) y alinea la barra con la retícula */
+.haber-barra {
+  anchor-name: --haber-barra;
+  padding-inline: max(var(--layout-pad-1), (100% - 75rem) / 2);
+  gap: var(--haber-inner);
+  border-block-end-color: var(--haber-filete-fuerte);
+  --component-button-font-family: var(--semantic-font-family-primary);
+  --component-button-font-weight: var(--haber-peso-medio);
+  --component-button-font-size: var(--haber-firma-tam);
+  --component-button-shadow: none;
+  --component-button-shadow-active: none;
+  --component-button-active-offset-x: 0;
+  --component-button-active-offset-y: 0;
+  --component-button-tertiary-border: transparent;
+  --component-button-tertiary-color: var(--haber-tinta-2);
+  --component-button-tertiary-border-hover: var(--haber-filete);
+  --component-button-tertiary-bg-hover: transparent;
+  --component-button-tertiary-color-hover: var(--haber-tinta);
+  --component-button-primary-filled-bg: var(--haber-tinta);
+  --component-button-primary-filled-border: var(--haber-tinta);
+  --component-button-primary-filled-color: var(--haber-papel);
+}
+/* la hamburguesa conserva su objetivo de 44 px, pero sus líneas (22 px) se alinean ópticamente con el
+   borde de la columna: se desplaza media diferencia hacia fuera */
+.haber-barra__menu {
+  margin-inline-start: calc((2.75rem - 1.375rem) / -2);
+  flex: none;
+}
+/* iconos a la altura de las mayúsculas: el trazo de lucide ocupa 20/24 del cuadro, centrado, así que el
+   cuadro mide 1cap / (20/24) y, centrado como el texto recortado (.haber-optico), su trazo coincide con
+   las mayúsculas de arriba abajo */
+.haber-barra__boton {
+  --component-icon-size-sm: 0.8em;
+}
+@supports (inline-size: 1cap) {
+  .haber-barra__boton {
+    --component-icon-size-sm: calc(1cap * 1.2);
+  }
+}
+.haber-barra__izq {
+  display: flex;
+  align-items: center;
+  gap: var(--haber-inner);
+  min-inline-size: 0;
+}
+@include desde(xl) {
+  .haber-barra__menu {
+    display: flex;                    /* SYX la oculta desde 80em; aquí abre el índice completo */
+  }
+}
+.haber-barra__marca {
+  min-block-size: 2.75rem;            /* el texto va recortado (.haber-optico): el objetivo lo pone el enlace */
+  font-size: var(--haber-paso1-tam);
+  font-weight: var(--haber-peso-marca);
+  letter-spacing: var(--haber-track-marca);
+}
+/* en escritorio la marca grande está encima: la de la barra aparece al desplazar */
+@include desde(lg) {
+  .haber-barra__marca {
+    opacity: 0;
+    @include syx.transition(opacity var(--haber-duracion-lenta) var(--haber-curva));
+  }
+  .haber-barra.is-scrolled .haber-barra__marca {
+    opacity: 1;
+  }
+}
+.haber-barra__acciones {
+  flex: none;
+}
+.haber-barra__texto,
+.haber-barra__modo {
+  display: none;
+}
+@include desde(md) {
+  .haber-barra__texto {
+    display: inline;
+    margin-inline-start: var(--haber-micro);
+  }
+  .haber-barra__modo {
+    display: inline-flex;
+  }
+}
+/* la navegación de escritorio: botones que abren megamenús (Popover API) */
+/* syx-reuse: checked org-site-header__nav (enlaces) — aquí son botones que abren megamenús (popovertarget) */
+.haber-nav {
+  gap: var(--haber-v1);
+  /* el relleno de cada botón se encoge entre 80 y ~110em para que la barra quepa a 1280 px sin partir
+     «Finanzas personales» ni pisar la marca (medido: faltaban 30 px) */
+  --haber-nav-pad: clamp(0.375rem, 1.25vw - 0.625rem, var(--haber-inner));
+}
+.haber-nav__boton {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  white-space: nowrap;
+  padding-inline: var(--haber-nav-pad);
+  border: 0;
+  background: none;
+  color: var(--haber-tinta);
+  font: inherit;
+  font-size: var(--haber-firma-tam);
+  font-weight: var(--haber-peso-medio);
+  cursor: pointer;
+  background-image: linear-gradient(var(--haber-laton), var(--haber-laton));
+  background-repeat: no-repeat;
+  background-position: 50% calc(100% - 0.5rem);
+  background-size: 0 var(--haber-fino);
+  @include syx.transition(background-size var(--haber-duracion-lenta) var(--haber-curva));
+}
+.haber-nav__boton:hover,
+.haber-nav__boton[aria-expanded="true"] {
+  background-size: calc(100% - 2 * var(--haber-nav-pad)) var(--haber-fino);
+}
+
+/* syx-reuse: checked org-site-nav-drawer (se usa tal cual) — índice completo en acordeón
+   (mol-disclosure con name: solo una sección abierta), búsqueda y cuenta */
+.haber-cajon {
+  /* el cajón cuelga del borde inferior real de la barra (que en escritorio no está arriba del todo
+     mientras se ve la marca): anchor positioning con la altura de la barra como respaldo */
+  inset-block-start: anchor(--haber-barra bottom, var(--haber-barra-alto));
+  max-block-size: calc(100dvh - var(--haber-barra-alto));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  gap: 0;
+  padding: var(--haber-v4) max(var(--layout-pad-1), env(safe-area-inset-left));
+  --component-disclosure-border-color: var(--haber-filete);
+  --component-disclosure-summary-font-weight: var(--haber-peso-medio);
+  --component-disclosure-summary-padding-block: var(--haber-v2);
+}
+@include desde(xl) {
+  .haber-cajon {
+    display: flex;                    /* SYX lo retira desde 80em; el diario lo conserva */
+    inset-inline-end: auto;
+    inline-size: 26rem;
+    border-inline-end: var(--haber-fino) solid var(--haber-filete);
+    padding-inline: var(--haber-padding);
+  }
+}
+.haber-cajon__portada {
+  padding-inline: 0;
+  font-weight: var(--haber-peso-medio);
+}
+.haber-cajon__titulo {
+  font-size: var(--haber-paso1-tam);
+  line-height: var(--haber-paso1-lh);
+}
+.haber-cajon__lista {
+  display: grid;
+  gap: 0 var(--haber-padding);
+  padding-block-end: var(--haber-v2);
+}
+.haber-cajon__lista--dos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.haber-cajon__sub {
+  display: block;
+  padding-block: var(--haber-v1);
+  min-block-size: 2.75rem;
+  line-height: calc(2.75rem - 2 * var(--haber-v1));
+  color: var(--haber-tinta-2);
+  text-decoration: none;
+}
+.haber-cajon__sub:hover {
+  color: var(--haber-tinta);
+}
+.haber-cajon__sub--todo {
+  color: var(--haber-laton-texto);
+}
+.haber-cajon__extra {
+  display: grid;
+  gap: var(--haber-v2);
+  padding-block: var(--haber-v4) 0;
+}
+.haber-cajon__cuenta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-block-end: var(--haber-v4);
+}
+/* syx-reuse: checked mol-form-field (atom-label + atom-input se usan tal cual) — búsqueda sin botón: Intro envía */
+.haber-busca {
+  display: grid;
+  gap: var(--haber-v1);
+  padding-block-end: var(--haber-v3);
+}
+
+/* megamenú y búsqueda: popovers nativos (capa superior, Esc y clic fuera cierran),
+   colgados del borde inferior de la barra con anchor positioning y su alternativa fija */
+/* syx-reuse: checked mol-menu, mol-dialog — un megamenú es un panel de navegación: Popover API nativo, sin JS */
+.haber-mega,
+.haber-busqueda {
+  inset: var(--haber-barra-alto) 0 auto 0;
+  inset-block-start: anchor(--haber-barra bottom, var(--haber-barra-alto));
+  margin: 0;
+  inline-size: 100%;
+  max-inline-size: none;
+  padding: var(--haber-v6) 0;
+  border: 0;
+  border-block-end: var(--haber-fino) solid var(--haber-filete);
+  background: var(--haber-papel);
+  color: var(--haber-tinta);
+  box-shadow: 0 1rem 2rem color-mix(in oklch, var(--haber-tinta) 10%, transparent);
+}
+.haber-mega__rejilla {
+  row-gap: var(--haber-v4);
+  align-items: start;
+}
+.haber-mega__cabeza {
+  display: grid;
+  gap: var(--haber-v3);
+}
+.haber-mega__todo {
+  font-size: var(--haber-pieza-tam);
+  line-height: var(--haber-pieza-lh);
+  font-weight: var(--haber-peso-medio);
+  color: var(--haber-tinta);
+  text-decoration: none;
+}
+.haber-mega__lista {
+  columns: 2;
+  column-gap: var(--haber-gutter);
+}
+.haber-mega__enlace {
+  display: block;
+  padding-block: var(--haber-v1);
+  color: var(--haber-tinta-2);
+  text-decoration: none;
+}
+.haber-mega__enlace:hover {
+  color: var(--haber-tinta);
+}
+.haber-mega__destacado {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: var(--haber-padding);
+  align-items: start;
+  color: var(--haber-tinta);
+  text-decoration: none;
+}
+.haber-mega__img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  inline-size: 7rem;
+}
+.haber-mega__titular {
+  font-size: var(--haber-paso1-tam);
+  line-height: var(--haber-paso1-lh);
+  font-weight: var(--haber-peso-medio);
+}
+.haber-busqueda__form {
+  row-gap: var(--haber-v3);
+  align-items: end;
+}
+.haber-busqueda__sugerencias {
+  font-size: var(--haber-firma-tam);
+  color: var(--haber-tinta-2);
+}
+
+/* texto ampliado («Aa»): la barra crece con la letra (todo va en rem) y a 1280–1440 px ya no cabe.
+   La navegación horizontal se retira hasta que hay sitio; el índice completo sigue en la hamburguesa.
+   Medido: al 112,5 % hacen falta ~1240 px de barra; al 125 %, ~1375 px (las em de las media queries
+   no escalan con la letra de la raíz, por eso los cortes son más anchos) */
+@include desde(xl) {
+  :root:is([data-letra="1"], [data-letra="2"]) .haber-nav {
+    display: none;
+  }
+}
+@media (min-width: 100em) {
+  :root[data-letra="1"] .haber-nav {
+    display: revert-layer;
+  }
+}
+@media (min-width: 110em) {
+  :root[data-letra="2"] .haber-nav {
+    display: revert-layer;
+  }
+}

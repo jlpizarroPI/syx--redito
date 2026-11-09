@@ -1,0 +1,36 @@
+// Newsreader (texto y titulares) y Hito solo para cifras (unicode-range).
+@font-face {
+  font-family: "Newsreader";
+  src: url("../fonts/newsreader.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("../fonts/newsreader-italic.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+/* Hito solo para las cifras de mercado: la cara se limita a cifras y signos (unicode-range),
+   así que en una pila "Hito Cifras", "Newsreader" las letras siguen en Newsreader. size-adjust
+   iguala la altura de las cifras de Hito (0,706 em) con la versal de Newsreader (0,67 em). */
+@font-face {
+  font-family: "Hito Cifras";
+  src: url("../fonts/hito-v1.woff2") format("woff2");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0025, U+002B-002E, U+0030-0039, U+2212;
+  size-adjust: 94.9%;
+}
+@font-face {
+  font-family: "Hito Cifras";
+  src: url("../fonts/hito-italic-v1.woff2") format("woff2");
+  font-weight: 300 800;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0025, U+002B-002E, U+0030-0039, U+2212;
+  size-adjust: 94.9%;
+}

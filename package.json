@@ -1,0 +1,26 @@
+{
+  "name": "redito",
+  "private": true,
+  "version": "0.5.0",
+  "syx": {
+    "theme": "example-01"
+  },
+  "description": "Rédito · diario de mercados — portada sobre SYX v5.1, Newsreader + cifras Hito",
+  "scripts": {
+    "css": "sass scss/haber.scss css/haber.css --no-source-map --load-path=node_modules",
+    "css:vigilar": "sass scss/haber.scss css/haber.css --no-source-map --load-path=node_modules --watch",
+    "html": "python3 datos/montar.py",
+    "dist": "python3 datos/autonomo.py",
+    "build": "npm run css && npm run html && npm run dist",
+    "scan": "syx-scan index.html $(find scss -name '*.scss')",
+    "medir": "python3 datos/medir.py",
+    "capturas": "python3 datos/capturas.py",
+    "servir": "python3 -m http.server 8765 --bind 127.0.0.1",
+    "pub": "python3 datos/pub.py",
+    "alinear": "python3 datos/alinear.py",
+    "vertical": "python3 datos/vertical.py 320 375 768 1024 1440"
+  },
+  "devDependencies": {
+    "sass": "^1.108.1"
+  }
+}
